@@ -5,6 +5,8 @@
 #include <iterator>
 #include <iomanip>
 
+// Added for testing
+
 int main(int argc, char *argv[]) {
     std::cin.exceptions(std::ios::eofbit|std::ios::failbit);
     std::string deck_1 = "default.deck";
@@ -39,7 +41,7 @@ int main(int argc, char *argv[]) {
                     throw std::out_of_range("File for deck 2 not found");
             }
             else if (cmd == "-test") { // enable test mode of the program
-                test_mode = true;
+                test_mode = true; 
             }
             else if (cmd == "-graphics") { // enable graphics for the program
                 graphics_mode = true;
