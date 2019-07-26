@@ -10,20 +10,24 @@
 #include "State.h"
 
 class Minion : public Card {
-    int attack;
-    int defence;
-    int action_number;
-    int action_performed;
-    bool has_active;
-    int activated_cost;
 protected:
+    int attack = 0;
+    int defence = 0;
+    int action_number = 0;
+    int action_performed = 0;
+    bool has_active = 0;
+    int activated_cost = 0;
     virtual int get_attack();
     virtual int get_defence();
     virtual bool has_activated();
     virtual bool get_activated_cost();
     virtual bool get_action_left();
     virtual bool check_death();
-    virtual ~Minion() = 0;
+public:
+    Minion();
+    ~Minion();
+    virtual Effect getInfo() const override;
+    void notify(Subject<Effect, Effect> &whoFrom) override;
 };
 
 

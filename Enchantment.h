@@ -10,9 +10,9 @@
 class Enchantment : public Minion {
 protected:
     Minion *previous;
-    Minion *base;
 public:
-    virtual ~Enchantment() = default;
+    Enchantment(Minion* m);
+    ~Enchantment();
 };
 
 #endif //SORCERY_ENCHANTMENT_H

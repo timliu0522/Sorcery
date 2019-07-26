@@ -5,8 +5,6 @@
 #include <iterator>
 #include <iomanip>
 
-// Added for testing
-
 int main(int argc, char *argv[]) {
     std::cin.exceptions(std::ios::eofbit|std::ios::failbit);
     std::string deck_1 = "default.deck";
@@ -41,7 +39,7 @@ int main(int argc, char *argv[]) {
                     throw std::out_of_range("File for deck 2 not found");
             }
             else if (cmd == "-test") { // enable test mode of the program
-                test_mode = true; 
+                test_mode = true;
             }
             else if (cmd == "-graphics") { // enable graphics for the program
                 graphics_mode = true;
@@ -179,7 +177,7 @@ int main(int argc, char *argv[]) {
                 iss>>player;
                 if (iss.eof()) // not getting the index of the target minion
                     throw 4;
-                if (player != 1 || player != 2)
+                if (player != 1 && player != 2)
                     throw std::out_of_range("Player does not exist, please provide which player you would like to target on.");
                 iss>>index_2;
                 std::cout<<"use card "<<index_1<<"'s ability on player "<<player<<"'s minion "<<index_2<<"."<<std::endl;

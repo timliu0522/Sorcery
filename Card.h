@@ -7,6 +7,7 @@
 
 
 #include "Subject.h"
+#include "Observer.h"
 #include "State.h"
 #include <string>
 
@@ -16,6 +17,10 @@ protected:
     std::string description;
     std::string type;
     int cost;
+    
+public:
+    Card();
+    virtual void notify(Subject<Effect, Effect> &whoFrom) override = 0;
 };
 
 

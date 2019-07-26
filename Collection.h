@@ -17,7 +17,7 @@ protected:
     std::vector<Card *> cardlist[2];
 public:
     virtual void push_card(int player, Card *in);
-    virtual void pop_card(int player, Card *out) = 0;
+    virtual Card* pop_card(int player, Card *out) = 0;
 };
 
 
