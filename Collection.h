@@ -12,12 +12,12 @@
 #include "State.h"
 #include <vector>
 
-class Collection : public Subject<Effect, Effect>, public Observer<Effect, Effect> {
+class Collection : public Subject<Effect>, public Observer<Effect> {
 protected:
     std::vector<Card *> cardlist[2];
 public:
     virtual void push_card(int player, Card *in);
-    virtual Card* pop_card(int player, Card *out) = 0;
+    virtual void pop_card(Card *out) = 0;
 };
 
 

@@ -13,6 +13,8 @@ struct Effect {
     int target;
     CollectionType destination;
     int value;
+    int notified_type; // 0 - minion, 1 - ritual, 2 - other
+    Effect(EffectType type, int player, int target, CollectionType destination, int value = 0, int notified_type = 0) : type{type}, player{player}, target{target}, destination{destination}, value{value}, notified_type{notified_type}{}
 };
 
 #endif //SORCERY_STATE_H

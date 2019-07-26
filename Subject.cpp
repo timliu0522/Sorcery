@@ -4,24 +4,24 @@
 
 #include "Subject.h"
 
-template <typename InfoType, typename StateType>
-void Subject<InfoType, StateType>::attach(Observer<InfoType, StateType> *o) {
+template <typename StateType>
+void Subject<StateType>::attach(Observer<StateType> *o) {
     observers.emplace_back(o);
 }
 
-template <typename InfoType, typename StateType>
-void Subject<InfoType, StateType>::notifyObservers() {
+template <typename StateType>
+void Subject<StateType>::notifyObservers() {
     for (auto &ob : observers) ob->notify(*this);
 }
 
-template <typename InfoType, typename StateType>
-void Subject<InfoType, StateType>::setState(StateType newS) { state = newS; }
+template <typename StateType>
+void Subject<StateType>::setState(StateType newS) { state = newS; }
 
-template <typename InfoType, typename StateType>
-StateType Subject<InfoType, StateType>::getState() const { return state; }
+template <typename StateType>
+StateType Subject<StateType>::getState() const { return state; }
 
-template <typename InfoType, typename StateType>
-void Subject<InfoType, StateType>::detach(Observer<InfoType, StateType> *o) {
+template <typename StateType>
+void Subject<StateType>::detach(Observer<StateType> *o) {
     for (auto i = observers.begin(); i != observers.end(); i++) {
         if (i == o) {
             observers.erase(i);

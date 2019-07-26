@@ -12,11 +12,16 @@
 #include "Collection.h"
 
 class Board : public Collection {
+    std::vector<Card *> ritual[2];
+    int cur_player;
+
 public:
     Board();
     ~Board();
     virtual void push_card(int player, Card *in) override;
-    virtual Card* pop_card(int player, Card *out) override;
+    virtual void pop_card(Card *out) override;
+    void notify_APNAP();
+    virtual void notify(Subject<Effect> &whoFrom) override;
 };
 
 #endif /* Board_h */

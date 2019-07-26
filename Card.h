@@ -11,16 +11,26 @@
 #include "State.h"
 #include <string>
 
-class Card : public Subject<Effect, Effect>, public Observer<Effect, Effect> {
+class Card : public Subject<Effect>, public Observer<Effect> {
 protected:
     std::string name;
     std::string description;
     std::string type;
     int cost;
-    
+    int player;
+
 public:
     Card();
-    virtual void notify(Subject<Effect, Effect> &whoFrom) override = 0;
+    std::string get_name() {
+        return name;
+    }
+    std::string get_description() {
+        return description;
+    }
+    std::string get_type() {
+        return type;
+    }
+    virtual void notify(Subject<Effect> &whoFrom) override = 0;
 };
 
 
