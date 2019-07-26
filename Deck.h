@@ -10,8 +10,8 @@ public:
     Deck();
     ~Deck();
     void load_deck(std::string filename, int num);
-    void push_card(int player, Card *in);
-    Card* pop_card(int player, Card *out) = 0;
+    void push_card(int player, Card *in) override;
+    Card* pop_card(int player, Card *out) override;
 };
 
 
