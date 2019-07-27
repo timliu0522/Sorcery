@@ -10,6 +10,7 @@
 #include "Grave.h"
 #include "Board.h"
 #include "Hand.h"
+#include "Card.h"
 
 
 class Game {
@@ -24,7 +25,12 @@ class Game {
     bool game_begin;
 public:
     void prettyprint();
-    
+    void move (std::shared_ptr<Collection> source, std::shared_ptr<Collection> dest, int card);
+    // getplayer1;
+    // getplayer2;
+    // getCurrplayer;
+    // getOtherpalyer;
+    //
 };
 
 
