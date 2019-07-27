@@ -16,8 +16,8 @@ class Collection : public Subject<Card *, Effect>, public Observer<Card *, Effec
 protected:
     std::vector<Card *> cardlist[2];
 public:
-    virtual void push_card(int player, Card *in);
-    virtual void pop_card(Card *out) = 0;
+    virtual void push_card(int player, Card * in) = 0;
+    virtual void pop_card(int player, Card *out) = 0;
 };
 
 
