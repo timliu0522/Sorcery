@@ -1,6 +1,6 @@
 #include "air_elemental.h"
 
-Air_Elemental::Air_Elemental(int player) : Card(player) {
+Air_Elemental::Air_Elemental(int player) : Minion(player) {
     name = "Air Elemental";
     description = "";
     type = "Minion";

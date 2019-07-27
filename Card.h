@@ -18,6 +18,7 @@ protected:
     std::string type;
     int cost;
     int player;
+    Effect effect;
 
 public:
     Card(int player);

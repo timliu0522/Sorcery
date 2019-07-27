@@ -9,6 +9,7 @@
 
 Card::Card(int player) {
     player = player;
+    effect = Effect();
 }
 
 std::string Card::get_name() {

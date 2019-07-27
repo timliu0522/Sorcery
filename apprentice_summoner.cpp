@@ -1,6 +1,6 @@
 #include "apprentice_summoner.h"
 
-Apprentice_Summoner::Apprentice_Summoner() {
+Apprentice_Summoner::Apprentice_Summoner(int player) : Minion(player) {
     name = "Apprentice Summoner";
     description = "Summon a 1/1 air elemental";
     type = "Minion";
@@ -11,4 +11,5 @@ Apprentice_Summoner::Apprentice_Summoner() {
     action_performed = 0;
     has_active = true;
     activated_cost = 1;
+    effect = Effect(EffectType::SUM, get_player(), 0, CollectionType::BOARD);
 }
