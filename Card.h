@@ -21,18 +21,10 @@ protected:
 
 public:
     Card();
-    std::string get_name() {
-        return name;
-    }
-    std::string get_description() {
-        return description;
-    }
-    std::string get_type() {
-        return type;
-    }
-    int get_player() {
-        return player;
-    }
+    std::string get_name();
+    std::string get_description();
+    std::string get_type();
+    int get_player();
     virtual void notify(Subject<Card *, Effect> &whoFrom) override = 0;
 };
 
