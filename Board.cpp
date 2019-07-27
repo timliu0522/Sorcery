@@ -72,7 +72,7 @@ void Board::notify_APNAP() {
     notifyObservers();
 }
 
-void Board::notify(Subject<Effect> &whoFrom) {
+void Board::notify(Subject<Card *, Effect> &whoFrom) {
     if (whoFrom.getState().type == EffectType::SOT) {
         setState(whoFrom.getState());
         notify_APNAP();
@@ -80,22 +80,16 @@ void Board::notify(Subject<Effect> &whoFrom) {
         setState(whoFrom.getState());
         notify_APNAP();
     } else if (whoFrom.getState().type == EffectType::MLC) {
-        for (int player = 0; player < 2; player++) {
-            int i = 0;
-            for (auto it = cardlist[player].begin(); it != cardlist[player].end(); it++, i++) {
-                if (*it != &whoFrom) continue;
-                setState(Effect(EffectType::MLC, player, i, CollectionType::GRAVE));
-                notify_APNAP();
-                detach(*it);
-                cardlist[player].erase(it);
-                return;
-            }
-            for (auto it = ritual[player].begin(); it != cardlist[player].end(); it++) {
-                if (*it != &whoFrom) continue;
-                detach(*it);
-                cardlist[player].erase(it);
-                return;
-            }
-        }
+        pop_card(whoFrom.getInfo());
+    } else if (whoFrom.getState().type == EffectType::DMG) {
+        setState(whoFrom.getState());
+        notify_APNAP();
+    } else if (whoFrom.getState().type == EffectType::BUF) {
+        setState(whoFrom.getState());
+        notify_APNAP();
+    } else if (whoFrom.getState().type == EffectType::MEC) {
+        push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
+    } else if (whoFrom.getState().type == EffectType::DEC) {
+        
     }
 }

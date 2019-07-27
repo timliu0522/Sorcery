@@ -12,7 +12,7 @@
 #include "State.h"
 #include <vector>
 
-class Collection : public Subject<Effect>, public Observer<Effect> {
+class Collection : public Subject<Card *, Effect>, public Observer<Card *, Effect> {
 protected:
     std::vector<Card *> cardlist[2];
 public:
