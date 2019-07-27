@@ -7,7 +7,7 @@
 //
 #include "Card.h"
 
-Card::Card();
+Card::Card() {}
 std::string Card::get_name() {
     return name;
 }
