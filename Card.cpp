@@ -7,7 +7,10 @@
 //
 #include "Card.h"
 
-Card::Card() {}
+Card::Card(int player) {
+    player = player;
+}
+
 std::string Card::get_name() {
     return name;
 }

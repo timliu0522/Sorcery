@@ -9,7 +9,7 @@
 class Air_Elemental : public Minion {
 
 public:
-    Air_Elemental();
+    Air_Elemental(int player);
 };
 
 #endif //SORCERY_AIR_ELEMENTAL_H

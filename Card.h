@@ -20,7 +20,7 @@ protected:
     int player;
 
 public:
-    Card();
+    Card(int player);
     std::string get_name();
     std::string get_description();
     std::string get_type();
