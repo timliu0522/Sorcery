@@ -52,8 +52,8 @@ void Deck::load_deck(std::string filename, int num) {
             push_card(num, new Blizzard());
         if (cardname == "Disenchant")
             push_card(num, new Disenchant());
-            if (cardname == "Unsummon")
-                push_card(num, new Unsummon());
+        if (cardname == "Unsummon")
+            push_card(num, new Unsummon());
     }
 }
 
