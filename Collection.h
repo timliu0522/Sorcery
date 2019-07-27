@@ -20,5 +20,4 @@ public:
     virtual void pop_card(int player, Card *out) = 0;
 };
 
-
 #endif //SORCERY_COLLECTION_H

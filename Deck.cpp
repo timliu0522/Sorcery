@@ -20,21 +20,21 @@ void Deck::load_deck(std::string filename, int num) {
     std::ifstream ifs(filename);
     while(getline(ifs, cardname)) {
         if (cardname == "Air Elemental")
-            push_card(num, new Air_Elemental());
+            push_card(num, new Air_Elemental(num));
         if (cardname == "Earth Elemental")
-            push_card(num, new Earth_Elemental());
+            push_card(num, new Earth_Elemental(num));
         if (cardname == "Bone Golem")
-            push_card(num, new Bone_Golem());
+            push_card(num, new Bone_Golem(num));
         if (cardname == "Apprentice Summoner")
-            push_card(num, new Apprentice_Summoner());
+            push_card(num, new Apprentice_Summoner(num));
         if (cardname == "Fire Elemental")
-            push_card(num, new Fire_Elemental());
+            push_card(num, new Fire_Elemental(num));
         if (cardname == "Master Summoner")
-            push_card(num, new Master_Summoner());
+            push_card(num, new Master_Summoner(num));
         if (cardname == "Novice Pyromancer")
-            push_card(num, new Novice_Pyromancer());
+            push_card(num, new Novice_Pyromancer(num));
         if (cardname == "Potion Seller")
-            push_card(num, new Potion_Seller());
+            push_card(num, new Potion_Seller(num));
         if (cardname == "Silence")
             push_card(num, new Silence(nullptr));
         if (cardname == "Giant Strength")
@@ -46,23 +46,23 @@ void Deck::load_deck(std::string filename, int num) {
         if (cardname == "Enrage")
             push_card(num, new Enrage(nullptr));
         if (cardname == "Dark Ritual")
-            push_card(num, new Dark_Ritual());
+            push_card(num, new Dark_Ritual(num));
         if (cardname == "Aura of Power")
-            push_card(num, new Aura_of_Power());
+            push_card(num, new Aura_of_Power(num));
         if (cardname == "Standstill")
-            push_card(num, new Standstill());
+            push_card(num, new Standstill(num));
         if (cardname == "Raise Dead")
-            push_card(num, new Raise_Dead());
+            push_card(num, new Raise_Dead(num));
         if (cardname == "Recharge")
-            push_card(num, new Recharge());
+            push_card(num, new Recharge(num));
         if (cardname == "Banish")
-            push_card(num, new Banish());
+            push_card(num, new Banish(num));
         if (cardname == "Blizzard")
-            push_card(num, new Blizzard());
+            push_card(num, new Blizzard(num));
         if (cardname == "Disenchant")
-            push_card(num, new Disenchant());
+            push_card(num, new Disenchant(num));
         if (cardname == "Unsummon")
-            push_card(num, new Unsummon());
+            push_card(num, new Unsummon(num));
     }
 }
 

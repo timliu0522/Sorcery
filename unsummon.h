@@ -9,7 +9,7 @@
 class Unsummon : public Spell {
     
 public:
-    Unsummon();
+    Unsummon(int player);
 };
 
 #endif //SORCERY_UNSOMMON_H
