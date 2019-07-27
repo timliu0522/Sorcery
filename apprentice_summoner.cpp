@@ -11,5 +11,5 @@ Apprentice_Summoner::Apprentice_Summoner(int player) : Minion(player) {
     action_performed = 0;
     has_active = true;
     activated_cost = 1;
-    effect = Effect(EffectType::SUM, get_player(), 0, CollectionType::BOARD);
+    effect = Effect(EffectType::SUM, get_player(), 0, CollectionType::BOARD, 1, 1);
 }

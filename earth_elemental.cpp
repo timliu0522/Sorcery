@@ -1,6 +1,6 @@
 #include "earth_elemental.h"
 
-Earth_Elemental::Earth_Elemental() {
+Earth_Elemental::Earth_Elemental(int player) : Minion(player) {
     name = "Earth Elemental";
     description = "";
     type = "Minion";

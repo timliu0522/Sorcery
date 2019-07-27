@@ -9,7 +9,7 @@
 class Disenchant : public Spell {
 
 public:
-    Disenchant();
+    Disenchant(int player);
 };
 
 #endif //SORCERY_DISENCHANT_H

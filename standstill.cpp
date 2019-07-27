@@ -9,12 +9,12 @@
 #include "standstill.h"
 #include "State.h"
 
-Standstill::Standstill () {
+Standstill::Standstill (int player) : Ritual(player) {
     name = "Standstill";
     description = "Whenever a minion enters play, destroy it";
     type = "Ritual";
     cost = 3;
-    effect = EffectType::MEC;
     charge = 4;
     act_cost = 2;
+    effect = Effect(EffectType::MEC, get_player(), 0, CollectionType::BOARD);
 }

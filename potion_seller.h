@@ -7,8 +7,9 @@
 #include "Minion.h"
 
 class Potion_Seller : public Minion {
+    
 public:
-    Potion_Seller();
+    Potion_Seller(int player);
 };
 
 #endif //SORCERY_POTION_SELLER_H

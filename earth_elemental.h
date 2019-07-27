@@ -6,7 +6,7 @@
 class Earth_Elemental : public Minion {
     
 public:
-    Earth_Elemental(); 
+    Earth_Elemental(int player); 
 };
 
 #endif //SORCERY_EARTH_ELEMENTAL_H

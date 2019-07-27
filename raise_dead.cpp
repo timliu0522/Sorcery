@@ -7,7 +7,7 @@
 //
 #include "raise_dead.h"
 
-Raise_Dead::Raise_Dead() {
+Raise_Dead::Raise_Dead(int player) : Spell(player) {
     name = "Raise_Dead";
     description = "Resurrect the top minion in your graveyard and set its defence to 1";
     type = "Spell";

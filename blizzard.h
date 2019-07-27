@@ -9,7 +9,7 @@
 class Blizzard : public Spell {
 
 public:
-    Blizzard();
+    Blizzard(int player);
 };
 
 #endif //SORCERY_BLIZZARD_H

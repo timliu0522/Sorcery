@@ -9,7 +9,6 @@
 
 class Ritual : public Card {
 protected:
-    EffectType effect;
     int charge;
     int act_cost;
     

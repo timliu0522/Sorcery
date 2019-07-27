@@ -9,7 +9,7 @@
 class Novice_Pyromancer : public Minion {
 
 public:
-    Novice_Pyromancer();
+    Novice_Pyromancer(int player);
 };
 
 #endif //SORCERY_NOVICE_PYROMANCER_H

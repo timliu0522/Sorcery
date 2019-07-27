@@ -7,7 +7,7 @@
 //
 #include "bone_golem.h"
 
-Bone_Golem::Bone_Golem() {
+Bone_Golem::Bone_Golem(int player) : Minion(player) {
     name = "Bone Golem";
     description = "Gain +1/+1 whenever a minion leaves play.";
     type = "Minion";
@@ -18,4 +18,5 @@ Bone_Golem::Bone_Golem() {
     action_performed = 0;
     has_active = false;
     activated_cost = 0;
+    effect = Effect(EffectType::MLC, get_player(), 0, CollectionType::BOARD, 1, 1);
 }

@@ -7,7 +7,7 @@
 //
 #include "potion_seller.h"
 
-Potion_Seller::Potion_Seller() {
+Potion_Seller::Potion_Seller(int player) : Minion(player) {
     name = "Potion Seller";
     description = "At the end of your turn, all your minions gain +0/+1";
     type = "Minion";
@@ -18,4 +18,5 @@ Potion_Seller::Potion_Seller() {
     action_performed = 0;
     has_active = false;
     activated_cost = 0;
+    effect = Effect(EffectType::EOT, get_player(), 1, CollectionType::BOARD, 0, 1);
 }

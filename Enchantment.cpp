@@ -7,7 +7,7 @@
 //
 #include "Enchantment.h"
 
-Enchantment::Enchantment (Minion* m) {
+Enchantment::Enchantment (Minion* m) : Minion(m->get_player()) {
     previous = m;
 }
 

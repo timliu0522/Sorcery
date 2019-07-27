@@ -9,7 +9,7 @@
 class Fire_Elemental : public Minion {
 
 public:
-    Fire_Elemental();
+    Fire_Elemental(int player);
 };
 
 #endif //SORCERY_FIRE_ELEMENTAL_H

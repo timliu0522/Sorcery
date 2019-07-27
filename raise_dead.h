@@ -9,7 +9,7 @@
 class Raise_Dead : public Spell {
 
 public:
-    Raise_Dead();
+    Raise_Dead(int player);
 };
 
 #endif //SORCERY_RAISE_DEAD_H

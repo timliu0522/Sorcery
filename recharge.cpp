@@ -7,10 +7,11 @@
 //
 #include "recharge.h"
 
-Recharge::Recharge() {
+Recharge::Recharge(int player) : Spell(player) {
     name = "Recharge";
     description = "Your ritual gains 3 charges.";
     type = "Spell";
     cost = 1;
     need_target = false;
+    effect = Effect(EffectType::BUF, get_player(), 0, CollectionType::BOARD, 3);
 }

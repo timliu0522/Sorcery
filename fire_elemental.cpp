@@ -7,7 +7,7 @@
 //
 #include "fire_elemental.h"
 
-Fire_Elemental::Fire_Elemental() {
+Fire_Elemental::Fire_Elemental(int player) {
     name = "Fire Elemental";
     description = "Whenever an opponent's minion enters play, deal 1 damage to it.";
     type = "Minion";

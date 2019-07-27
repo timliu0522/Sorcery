@@ -9,7 +9,7 @@
 class Dark_Ritual : public Ritual {
 
 public:
-    Dark_Ritual();
+    Dark_Ritual(int player);
 };
 
 #endif //SORCERY_DARK_RITUAL_H

@@ -9,7 +9,7 @@
 class Recharge : public Spell {
 
 public:
-    Recharge();
+    Recharge(int player);
 };
 
 

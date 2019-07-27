@@ -9,7 +9,7 @@
 class Master_Summoner : public Minion {
 
 public:
-    Master_Summoner();
+    Master_Summoner(int player);
 };
 
 #endif //SORCERY_MASTER_SUMMONER_H

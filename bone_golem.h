@@ -14,7 +14,7 @@
 class Bone_Golem : public Minion {
     
 public:
-    Bone_Golem();
+    Bone_Golem(int player);
 };
 
 #endif //SORCERY_EARTH_ELEMENTAL_H

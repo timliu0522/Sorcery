@@ -7,7 +7,7 @@
 //
 #include "novice_pyromancer.h"
 
-Novice_Pyromancer::Novice_Pyromancer() {
+Novice_Pyromancer::Novice_Pyromancer(int player) : Minion(player) {
     name = "Novice Pyromancer";
     description = "Deal 1 damage to target minion";
     type = "Minion";
@@ -18,4 +18,5 @@ Novice_Pyromancer::Novice_Pyromancer() {
     action_performed = 0;
     has_active = true;
     activated_cost = 1;
+    effect = Effect(EffectType::DMG, get_player(), 0, CollectionType::BOARD, 1);
 }

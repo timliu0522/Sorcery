@@ -9,7 +9,7 @@
 class Standstill : public Ritual {
 
 public:
-    Standstill();
+    Standstill(int player);
 };
 
 #endif //SORCERY_STANDSTILL_H

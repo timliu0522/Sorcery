@@ -9,7 +9,7 @@
 class Banish : public Spell {
 
 public:
-    Banish();
+    Banish(int player);
 };
 
 #endif //SORCERY_BANISH_H
