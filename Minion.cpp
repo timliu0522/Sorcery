@@ -3,7 +3,7 @@
 //
 #include "Minion.h"
 
-
+Minion::Minion(int player) : Card(player) {}
 
 int Minion::get_attack() {
     return attack;
@@ -30,10 +30,6 @@ bool Minion::check_death() {
         return false;
 }
 
-void Minion::notify(Subject<Effect, Effect> &whoFrom) {
+void Minion::notify(Subject<Card *, Effect> &whoFrom) {
     
-}
-
-Effect Minion::getInfo() const {
-    return Effect();
 }

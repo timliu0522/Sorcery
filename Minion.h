@@ -24,10 +24,9 @@ protected:
     virtual bool get_action_left();
     virtual bool check_death();
 public:
-    Minion();
+    Minion(int player);
     ~Minion();
-    virtual Effect getInfo() const override;
-    void notify(Subject<Effect, Effect> &whoFrom) override;
+    void notify(Subject<Card *, Effect> &whoFrom) override;
 };
 
 
