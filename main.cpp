@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iterator>
 #include <iomanip>
+#include "Player.h"
 
 // Modified main
 // + 1
@@ -93,6 +94,9 @@ int main(int argc, char *argv[]) {
         init = false;
         getline(std::cin, p2_name);
     }
+    
+    Player player_1 = Player(p1_name);
+    Player player_2 = Player(p2_name);
 
     // read in deck
 

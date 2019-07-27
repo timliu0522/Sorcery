@@ -15,12 +15,13 @@ class Player {
     int health;
     int magic;
 protected:
-    Player (std::string);
     int getHealth();
     int getMagic();
     void setHealth(int n);
     void setMagic(int n);
     bool check_death();
+public:
+    Player (std::string);
 };
 
 
