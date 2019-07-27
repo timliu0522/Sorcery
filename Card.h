@@ -11,7 +11,7 @@
 #include "State.h"
 #include <string>
 
-class Card : public Subject<Effect>, public Observer<Effect> {
+class Card : public Subject<Card *, Effect>, public Observer<Card *, Effect> {
 protected:
     std::string name;
     std::string description;
@@ -30,7 +30,10 @@ public:
     std::string get_type() {
         return type;
     }
-    virtual void notify(Subject<Effect> &whoFrom) override = 0;
+    int get_player() {
+        return player;
+    }
+    virtual void notify(Subject<Card *, Effect> &whoFrom) override = 0;
 };
 
 

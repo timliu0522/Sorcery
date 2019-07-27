@@ -7,18 +7,22 @@
 #ifndef SORCERY_SUBJECT_H
 #define SORCERY_SUBJECT_H
 
-template <typename StateType> class Observer;
+template <typename InfoType, typename StateType> class Observer;
 
-template <typename StateType> class Subject {
-    std::vector<Observer<StateType>*> observers;
+template <typename InfoType, typename StateType> class Subject {
+    std::vector<Observer<InfoType, StateType>*> observers;
     StateType state;
+    InfoType info;
 protected:
     void setState(StateType newS);
 public:
-    void attach(Observer<StateType> *o);
-    void detach(Observer<StateType> *o);
-    virtual void notifyObservers();
+    void attach(Observer<InfoType, StateType> *o);
+    void detach(Observer<InfoType, StateType> *o);
+    void notifyObservers();
+    InfoType getInfo() const;
+    void setInfo(InfoType);
     StateType getState() const;
+    ~Subject() = 0;
 };
 
 #endif //SORCERY_SUBJECT_H
