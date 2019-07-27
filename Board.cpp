@@ -30,7 +30,7 @@ void Board::push_card(int player, Card *in) {
         ritual[player].push_back(in);
     } else {
         cardlist[player].emplace_back(in);
-        int new_size = cardlist[player].size();
+        int new_size = (int) cardlist[player].size();
         cardlist[player][cardlist[player].size() - 1]->attach(this);
         if (in->get_type() == "Minion") {
             setState(Effect(EffectType::MEC, player, new_size - 1, CollectionType::BOARD));

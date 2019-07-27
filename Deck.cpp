@@ -62,7 +62,7 @@ void Deck::push_card(int player, Card *in) {
     cards_left ++;
 }
 
-Card* Deck::pop_card(int player, Card *in) {
+Card* Deck::pop_card(int player) {
     Card* temp = cardlist[player - 1].back();
     cardlist[player - 1].pop_back();
     return temp;
