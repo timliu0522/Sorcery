@@ -6,6 +6,15 @@ Deck::Deck() {
     cards_left = 0;
 }
 
+Deck::~Deck() {
+    for (int i = 0; i < 2; i++) {
+        while (!cardlist[i].empty()) {
+            delete cardlist[i].back();
+            cardlist[i].pop_back();
+        }
+    }
+}
+
 void Deck::load_deck(std::string filename, int num) {
     std::string cardname;
     std::ifstream ifs(filename);
@@ -58,12 +67,11 @@ void Deck::load_deck(std::string filename, int num) {
 }
 
 void Deck::push_card(int player, Card *in) {
-    cardlist[player - 1].emplace_back(in);
+    cardlist[player].emplace_back(in);
     cards_left ++;
 }
 
-Card* Deck::pop_card(int player) {
-    Card* temp = cardlist[player - 1].back();
-    cardlist[player - 1].pop_back();
-    return temp;
+void Deck::pop_card(int player, Card *out) {
+    Card* temp = cardlist[player].back();
+    cardlist[player].pop_back();
 }
