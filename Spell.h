@@ -11,7 +11,7 @@ protected:
     bool need_target;
     
 public:
-    virtual Effect getInfo() const override;
-    void notify(Subject<Effect, Effect> &whoFrom) override;
+    Spell(int player);
+    void notify(Subject<Card*, Effect> &whoFrom) override;
 };
 #endif //SORCERY_SPELL_H

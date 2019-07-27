@@ -7,10 +7,8 @@
 //
 #include "Spell.h"
 
-void Spell::notify(Subject<Effect, Effect> &whoFrom) {
-    
-}
+Spell::Spell(int player) : Card(player) {}
 
-Effect Spell::getInfo() const {
-    return Effect();
+void Spell::notify(Subject<Card*, Effect> &whoFrom) {
+    
 }

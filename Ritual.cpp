@@ -7,10 +7,9 @@
 //
 #include "Ritual.h"
 
-void Ritual::notify(Subject<Effect, Effect> &whoFrom) {
+Ritual::Ritual(int player) : Card(player) {}
+
+void Ritual::notify(Subject<Card *, Effect> &whoFrom) {
     
 }
 
-Effect Ritual::getInfo() const {
-    return Effect();
-}

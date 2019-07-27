@@ -14,9 +14,9 @@ protected:
     int act_cost;
     
 public:
+    Ritual(int player);
     void ability();
-    virtual Effect getInfo() const override;
-    void notify(Subject<Effect, Effect> &whoFrom) override;
+    void notify(Subject<Card *, Effect> &whoFrom) override;
 };
 
 #endif //SORCERY_RITUAL_H
