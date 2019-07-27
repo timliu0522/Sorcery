@@ -7,7 +7,7 @@
 #include "Minion.h"
 
 class Air_Elemental : public Minion {
-
+    
 public:
     Air_Elemental(int player);
 };

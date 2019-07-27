@@ -5,7 +5,7 @@
 #ifndef SORCERY_STATE_H
 #define SORCERY_STATE_H
 
-enum class EffectType {SOT, EOT, MEC, MLC, DMG, BUF, MOV, DEC};
+enum class EffectType {SOT, EOT, MEC, MLC, DMG, BUF, MOV, DEC, SUM};
 enum class CollectionType {DECK, BOARD, GRAVE, HAND};
 struct Effect {
     EffectType type;

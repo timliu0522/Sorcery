@@ -9,7 +9,7 @@
 class Aura_of_Power : public Ritual {
 
 public:
-    Aura_of_Power();
+    Aura_of_Power(int player);
 };
 
 #endif //SORCERY_AURA_OF_POWER_H

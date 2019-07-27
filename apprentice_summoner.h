@@ -9,7 +9,7 @@
 class Apprentice_Summoner : public Minion {
 
 public:
-    Apprentice_Summoner();
+    Apprentice_Summoner(int player);
 };
 
 
