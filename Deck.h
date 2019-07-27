@@ -11,7 +11,7 @@ public:
     ~Deck();
     void load_deck(std::string filename, int num);
     void push_card(int player, Card *in) override;
-    void pop_card(Card *out) override;
+    void pop_card(int player, Card *out) override;
 };
 
 

@@ -6,3 +6,32 @@
 //  Copyright © 2019 An Zhang. All rights reserved.
 //
 
+#include "Hand.h"
+
+Hand::~Hand() {
+    for (int i = 0; i < 2; i++) {
+        while (!cardlist[i].empty()) {
+            delete cardlist[i].back();
+            cardlist[i].pop_back();
+        }
+    }
+}
+
+void Hand::push_card(int player, Card *in) {
+    cardlist[player].emplace_back(in);
+}
+
+void Hand::pop_card(int player, Card *out) {
+    for (auto it = cardlist[player].begin(); it != cardlist[player].end(); it ++) {
+        if (*it != out) continue;
+        cardlist[player].erase(it);
+        return;
+    }
+}
+
+void Hand::notify(Subject<Card *, Effect> &whoFrom) {
+    if (whoFrom.getState().notified_type != 2) return;
+    if (whoFrom.getState().type == EffectType::MLC && whoFrom.getState().destination == CollectionType::HAND) {
+        push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
+    }
+}

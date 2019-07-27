@@ -39,7 +39,7 @@ void Board::push_card(int player, Card *in) {
     }
 }
 
-void Board::pop_card(Card *out) {
+void Board::pop_card(int play, Card *out) {
     for (int player = 0; player < 2; player ++) {
         int i = 0;
         for (auto it = cardlist[player].begin(); it != cardlist[player].end(); it++, i++) {
@@ -73,6 +73,7 @@ void Board::notify_APNAP() {
 }
 
 void Board::notify(Subject<Card *, Effect> &whoFrom) {
+    if (whoFrom.getState().notified_type != 2) return;
     if (whoFrom.getState().type == EffectType::SOT) {
         setState(whoFrom.getState());
         notify_APNAP();

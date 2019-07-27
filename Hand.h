@@ -13,10 +13,11 @@
 class Hand : public Collection {
     
 public:
-    Hand();
+    Hand() = default;
     ~Hand();
     void push_card(int player, Card *in) override;
-    void pop_card(Card *out) override;
+    void pop_card(int player, Card *out) override;
+    void notify(Subject<Card *, Effect> &whoFrom) override;
 };
 
 

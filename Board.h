@@ -19,7 +19,7 @@ public:
     Board();
     ~Board();
     virtual void push_card(int player, Card *in) override;
-    virtual void pop_card(Card *out) override;
+    virtual void pop_card(int player, Card *out) override;
     void notify_APNAP();
     virtual void notify(Subject<Card *, Effect> &whoFrom) override;
 };
