@@ -17,7 +17,7 @@ int Game::getOtherPlayer() {
 }
 
 void Game::move(std::shared_ptr<Collection> source, std::shared_ptr<Collection> dest, Card *the_card) {
-    source->pop_card(the_card);
+    source->pop_card(this->getCurrPlayer(), the_card);
     dest->push_card(this->getCurrPlayer(), the_card);
 }
 
