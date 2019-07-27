@@ -60,15 +60,15 @@ void Board::pop_card(Card *out) {
 }
 
 void Board::notify_APNAP() {
-    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value, 0));
+    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value1, getState().value2, 0));
     notifyObservers();
-    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value, 1));
+    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value1, getState().value2, 1));
     notifyObservers();
-    setState(Effect(getState().type, 1 - cur_player, getState().target, getState().destination, getState().value, 0));
+    setState(Effect(getState().type, 1 - cur_player, getState().target, getState().destination, getState().value1, getState().value2, 0));
     notifyObservers();
-    setState(Effect(getState().type, 1 - cur_player, getState().target, getState().destination, getState().value, 1));
+    setState(Effect(getState().type, 1 - cur_player, getState().target, getState().destination, getState().value1, getState().value2, 1));
     notifyObservers();
-    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value, 2));
+    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value1, getState().value2, 2));
     notifyObservers();
 }
 
