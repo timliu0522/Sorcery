@@ -90,6 +90,6 @@ void Board::notify(Subject<Card *, Effect> &whoFrom) {
     } else if (whoFrom.getState().type == EffectType::MEC) {
         push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
     } else if (whoFrom.getState().type == EffectType::DEC) {
-        
+
     }
 }
