@@ -24,7 +24,7 @@ protected:
     virtual bool get_action_left();
     virtual bool check_death();
 public:
-    Minion();
+    Minion(int player);
     ~Minion();
     void notify(Subject<Card *, Effect> &whoFrom) override;
 };

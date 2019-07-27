@@ -3,7 +3,7 @@
 //
 #include "Minion.h"
 
-
+Minion::Minion(int player) : Card(player) {}
 
 int Minion::get_attack() {
     return attack;
