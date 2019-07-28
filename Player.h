@@ -14,14 +14,15 @@ class Player {
     std::string name;
     int health;
     int magic;
-protected:
+public:
     int getHealth();
     int getMagic();
+    std::string getName();
     void setHealth(int n);
     void setMagic(int n);
     bool check_death();
-public:
     Player (std::string);
+
 };
 
 

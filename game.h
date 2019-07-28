@@ -13,12 +13,12 @@
 #include "Card.h"
 #include "Player.h"
 #include <memory>
+#include <string>
 
 
 
 class Game {
-    std::shared_ptr<Player> player1;
-    std::shared_ptr<Player> player2;
+    std::shared_ptr<Player> plyrs[2];
     int CurrPlayer; // current player
     int OtherPlayer;
     std::shared_ptr<Deck> deck;
@@ -28,8 +28,8 @@ class Game {
     bool game_end;
     bool game_begin;
 public:
-    Game(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2, std::shared_ptr<Deck> d, std::shared_ptr<Board> b,
-            std::shared_ptr<Hand> h, std::shared_ptr<Graveyard> g); // wait for discussion, use game to add or use main
+    Game(std::string, std::string); // wait for discussion, use game to add or use main
+    void init_deck(int player, std::string filename);
     void prettyprint();
     void move (std::shared_ptr<Collection> source, std::shared_ptr<Collection> dest, Card * the_card);
     int getCurrPlayer();
@@ -41,14 +41,16 @@ public:
     bool getBegin();
     void Gamepush(std::shared_ptr<Collection> where, int who, Card* c);
     void Gamepop(std::shared_ptr<Collection> where, int who, Card* c);
+    void startTurn();
     void endTurn();
     void MinionattackPlayer(int index_1);
     void MinionattackMinion(int index_1, int index_2);
-    void PlayCard(int theplayer, int index_1, int index_2);
+    void PlayCard(int index_1, int player = -1, int index_2 = -1);
     void checkAbility(int index_1);
-    void UseCard(int theplayer, int index_1, int index_2);
+    void UseCard(int index_1, int player = -1, int index_2 = -1);
     void InspectMinion(int index_1);
     void ShowHand();
+    std::string getWinner();
 };
 
 

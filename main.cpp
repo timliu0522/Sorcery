@@ -5,6 +5,7 @@
 #include <iterator>
 #include <iomanip>
 #include "Player.h"
+#include "game.h"
 
 // Modified main
 // + 1
@@ -94,11 +95,14 @@ int main(int argc, char *argv[]) {
         init = false;
         getline(std::cin, p2_name);
     }
-    
-    Player player_1 = Player(p1_name);
-    Player player_2 = Player(p2_name);
+
+    Game game (p1_name, p2_name);
 
     // read in deck
+    game.init_deck(0, deck_1);
+    game.init_deck(1, deck_2);
+
+
 
     while (true) {
         try {
@@ -109,7 +113,7 @@ int main(int argc, char *argv[]) {
                 }
             }
             else if (!getline(std::cin, cmd))
-                throw 0;
+                return 0;
 
             iss.clear();
             iss.str(cmd);
@@ -133,8 +137,9 @@ int main(int argc, char *argv[]) {
                 std::cout << std::setw(10) << "hand -- Describe all cards in your hand." << std::endl;
                 std::cout << std::setw(10) << "board -- Describe all cards on the board." << std::endl;
             } else if (cmd == "end") { // end one player's turn
-                // endTurn();
                 std::cout<<"end"<<std::endl;
+                game.endTurn();
+                game.startTurn();
             } else if (cmd == "quit") { // end the game
                 std::cout << "Game Ended, Thanks for Playing" << std::endl;
                 std::cout << "Coded by Tony Monster, Tim the Banker, and Kevin the Ripper" << std::endl;
@@ -151,12 +156,20 @@ int main(int argc, char *argv[]) {
                 iss >> index_1;
                 if (iss.eof()) { // minion at index_1 attack opposing player
                     std::cout<<"minion "<<index_1<<" attacks opposing player."<<std::endl;
-                    // MinionattackPlayer(index_1);
+                    try {
+                        game.MinionattackPlayer(index_1);
+                    } catch (int e) {
+                        throw e;
+                    }
                 }
                 else { // minion at index_1 attack minion at index_2
                     iss >> index_2;
                     std::cout<<"minion "<<index_1<<" attacks minion "<<index_2<<"."<<std::endl;
-                    // MinionattackMinion(index_1, index_2);
+                    try {
+                        game.MinionattackMinion(index_1, index_2);
+                    } catch (int e) {
+                        throw e;
+                    }
                 }
             } else if (cmd == "play") { // play player's card
                 int index_1, index_2;
@@ -164,55 +177,74 @@ int main(int argc, char *argv[]) {
                 if (iss.eof()) // not getting the index of the card
                     throw 2;
                 iss>>index_1;
-                if (iss.eof()) // not getting the index of the target player
-                    // need modification for no-target spells, or summon a minion
-                    throw 3;
-                iss>>player;
-                if (iss.eof()) // not getting the index of the target minion
-                    throw 4;
-                if (player != 1 && player != 2)
-                    throw std::out_of_range("Player does not exist, please provide which player you would like to target on.");
-                iss>>index_2;
-                std::cout<<"play card "<<index_1<<" target on player "<<player<<"'s minion "<<index_2<<"."<<std::endl;
-                // PlayCard(player, index_1, index_2);
+                // not getting the index of the target player
+                if (iss.eof()) {
+                    try {
+                        game.PlayCard(index_1);
+                    } catch (int e) {
+                        throw e;
+                    }
+                } else {
+                    iss >> player;
+                    if (iss.eof()) // not getting the index of the target minion
+                        throw 4;
+                    if (player != 0 && player != 1)
+                        throw std::out_of_range(
+                                "Player does not exist, please provide which player you would like to target on.");
+                    iss >> index_2;
+                    std::cout << "play card " << index_1 << " target on player " << player << "'s minion " << index_2
+                    << "." << std::endl;
+                    try {
+                        game.PlayCard(index_1, player, index_2);
+                    } catch (int e) {
+                        throw e;
+                    }
+                }
             } else if (cmd == "use") { // use minion's ability
                 // need to check if the minion has activated ability
                 int index_1, index_2;
                 int player;
                 if (iss.eof()) // not getting the index of the minion
                     throw 5;
-                iss >> index_1;
-                if (iss.eof()) // not getting the index of the target player
-                    // need modification for no-target spells
-                    throw 3;
-                iss>>player;
-                if (iss.eof()) // not getting the index of the target minion
-                    throw 4;
-                if (player != 1 && player != 2)
-                    throw std::out_of_range("Player does not exist, please provide which player you would like to target on.");
-                iss>>index_2;
-                std::cout<<"use card "<<index_1<<"'s ability on player "<<player<<"'s minion "<<index_2<<"."<<std::endl;
-                // checkAbility(index_1);
-                // UseCard(player, index_1, index_2);
+                iss>>index_1;
+                // not getting the index of the target player
+                if (iss.eof()) {
+                    try {
+                        game.UseCard(index_1);
+                    } catch (int e) {
+                        throw e;
+                    }
+                } else {
+                    iss >> player;
+                    if (iss.eof()) // not getting the index of the target minion
+                        throw 4;
+                    if (player != 0 && player != 1)
+                        throw std::out_of_range(
+                                "Player does not exist, please provide which player you would like to target on.");
+                    iss >> index_2;
+                    std::cout << "use card " << index_1 << " target on player " << player << "'s minion " << index_2
+                              << "." << std::endl;
+                    try {
+                        game.UseCard(index_1, player, index_2);
+                    } catch (int e) {
+                        throw e;
+                    }
+                }
             } else if (cmd == "inspect") { // inspect minion
                 int index;
                 if (iss.eof()) // not getting the index of the inspected minion
                     throw 6;
                 iss>>index;
                 std::cout<<"inspect minion "<<index<<std::endl;
-                // InpectMinion(index_1);
             } else if (cmd == "hand") { // show the hand of the activated player
                 std::cout<<"hand"<<std::endl;
-                // ShowHand();
             } else if (cmd == "board") { // display the board of the game
                 std::cout<<"board"<<std::endl;
-                // prettyprint();
             } else {
                 std::cout << "No command named " << cmd << " found." << std::endl;
                 std::cout << "To see all commands available, use help command (lowercase)" << std::endl;
             }
         }
-
         catch (std::ios::failure &) { return 0; }  // Any I/O failure quits
         catch (std::out_of_range e) { std::cout<<e.what()<<std::endl; }
         catch (int i) {
@@ -236,6 +268,10 @@ int main(int argc, char *argv[]) {
                     std::cout<<"Please provide which minion you would like to inspect."<<std::endl;
                     break;
             }
+        }
+        if (game.getWinner() != "None") {
+            std::cout << "Player " + game.getWinner() + " Wins\n" << std::endl;
+            break;
         }
     }
     return 0;

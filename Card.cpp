@@ -7,10 +7,7 @@
 //
 #include "Card.h"
 
-Card::Card(int player) {
-    player = player;
-    effect = Effect();
-}
+Card::Card(int player, bool can) : player{player}, has_target{can} {}
 
 std::string Card::get_name() {
     return name;
@@ -21,6 +18,11 @@ std::string Card::get_description() {
 std::string Card::get_type() {
     return type;
 }
+
+bool Card::can_target() {
+    return has_target;
+}
+
 int Card::get_player() {
     return player;
 }

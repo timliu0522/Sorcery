@@ -18,14 +18,16 @@ protected:
     std::string type;
     int cost;
     int player;
+    bool has_target;
     Effect effect;
 
 public:
-    Card(int player);
+    Card(int player, bool);
     std::string get_name();
     std::string get_description();
     std::string get_type();
     int get_player();
+    bool can_target();
     virtual void notify(Subject<Card *, Effect> &whoFrom) override = 0;
 };
 

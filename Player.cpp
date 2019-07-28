@@ -8,6 +8,11 @@ Player::Player (std::string given) : name {given} {
     this->health = 20;
     this->magic = 0;
 }
+
+std::string Player::getName() {
+    return this->name;
+}
+
 int Player::getHealth() {
     return this->health;
 }
@@ -39,3 +44,4 @@ bool Player::check_death() {
         return true;
     }
 }
+
