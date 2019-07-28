@@ -133,6 +133,7 @@ int main(int argc, char *argv[]) {
                 std::cout << std::setw(10) << "hand -- Describe all cards in your hand." << std::endl;
                 std::cout << std::setw(10) << "board -- Describe all cards on the board." << std::endl;
             } else if (cmd == "end") { // end one player's turn
+                // endTurn();
                 std::cout<<"end"<<std::endl;
             } else if (cmd == "quit") { // end the game
                 std::cout << "Game Ended, Thanks for Playing" << std::endl;
@@ -150,10 +151,12 @@ int main(int argc, char *argv[]) {
                 iss >> index_1;
                 if (iss.eof()) { // minion at index_1 attack opposing player
                     std::cout<<"minion "<<index_1<<" attacks opposing player."<<std::endl;
+                    // MinionattackPlayer(index_1);
                 }
                 else { // minion at index_1 attack minion at index_2
                     iss >> index_2;
                     std::cout<<"minion "<<index_1<<" attacks minion "<<index_2<<"."<<std::endl;
+                    // MinionattackMinion(index_1, index_2);
                 }
             } else if (cmd == "play") { // play player's card
                 int index_1, index_2;
@@ -171,6 +174,7 @@ int main(int argc, char *argv[]) {
                     throw std::out_of_range("Player does not exist, please provide which player you would like to target on.");
                 iss>>index_2;
                 std::cout<<"play card "<<index_1<<" target on player "<<player<<"'s minion "<<index_2<<"."<<std::endl;
+                // PlayCard(player, index_1, index_2);
             } else if (cmd == "use") { // use minion's ability
                 // need to check if the minion has activated ability
                 int index_1, index_2;
@@ -188,16 +192,21 @@ int main(int argc, char *argv[]) {
                     throw std::out_of_range("Player does not exist, please provide which player you would like to target on.");
                 iss>>index_2;
                 std::cout<<"use card "<<index_1<<"'s ability on player "<<player<<"'s minion "<<index_2<<"."<<std::endl;
+                // checkAbility(index_1);
+                // UseCard(player, index_1, index_2);
             } else if (cmd == "inspect") { // inspect minion
                 int index;
                 if (iss.eof()) // not getting the index of the inspected minion
                     throw 6;
                 iss>>index;
                 std::cout<<"inspect minion "<<index<<std::endl;
+                // InpectMinion(index_1);
             } else if (cmd == "hand") { // show the hand of the activated player
                 std::cout<<"hand"<<std::endl;
+                // ShowHand();
             } else if (cmd == "board") { // display the board of the game
                 std::cout<<"board"<<std::endl;
+                // prettyprint();
             } else {
                 std::cout << "No command named " << cmd << " found." << std::endl;
                 std::cout << "To see all commands available, use help command (lowercase)" << std::endl;
