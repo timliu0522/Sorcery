@@ -3,3 +3,7 @@
 //
 
 #include "Collection.h"
+
+int Collection::get_size(int player) {
+    return cardlist[player].size();
+}

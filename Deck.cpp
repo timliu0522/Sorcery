@@ -66,12 +66,18 @@ void Deck::load_deck(std::string filename, int num) {
     }
 }
 
-void Deck::push_card(int player, Card *in) {
+void Deck::push_card(int player, std::shared_ptr<Card> in) {
     cardlist[player].emplace_back(in);
     cards_left ++;
 }
 
-void Deck::pop_card(int player, Card *out) {
-    out = cardlist[player].back();
+void Deck::pop_card(int player, std::shared_ptr<Card> out) {
+    cardlist[player].pop_back();
+}
+
+void Deck::pop_top(int player) {
+    setState(Effect(EffectType::MOV, player, 0, CollectionType::HAND));
+    setInfo(cardlist[player].back());
+    notifyObservers();
     cardlist[player].pop_back();
 }

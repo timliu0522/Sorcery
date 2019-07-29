@@ -15,9 +15,9 @@ class Graveyard : public Collection {
 public:
     Graveyard();
     ~Graveyard();
-    void push_card(int player, Card *in) override;
-    void pop_card(int player, Card *out) override;
-    void notify(Subject<Card *, Effect> &whoFrom) override;
+    void push_card(int player, std::shared_ptr<Card> in) override;
+    void pop_card(int player, std::shared_ptr<Card> out) override;
+    void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
 #endif /* Grave_h */

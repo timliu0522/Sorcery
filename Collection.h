@@ -11,13 +11,15 @@
 #include "Observer.h"
 #include "State.h"
 #include <vector>
+#include <memory>
 
-class Collection : public Subject<Card *, Effect>, public Observer<Card *, Effect> {
+class Collection : public Subject<std::shared_ptr<Card> , Effect>, public Observer<std::shared_ptr<Card>, Effect>, public std::enable_shared_from_this<Collection>{
 protected:
-    std::vector<Card *> cardlist[2];
+    std::vector<std::shared_ptr<Card>> cardlist[2];
 public:
-    virtual void push_card(int player, Card * in) = 0;
-    virtual void pop_card(int player, Card *out) = 0;
+    virtual void push_card(int player, std::shared_ptr<Card> in) = 0;
+    virtual void pop_card(int player, std::shared_ptr<Card> out) = 0;
+    int get_size(int player);
 };
 
 #endif //SORCERY_COLLECTION_H

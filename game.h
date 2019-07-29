@@ -17,8 +17,8 @@
 
 
 
-class Game {
-    std::shared_ptr<Player> plyrs[2];
+class Game : public Subject<std::shared_ptr<Card>, Effect>{
+    std::shared_ptr<Player> players[2];
     int CurrPlayer; // current player
     int OtherPlayer;
     std::shared_ptr<Deck> deck;
@@ -31,16 +31,17 @@ public:
     Game(std::string, std::string); // wait for discussion, use game to add or use main
     void init_deck(int player, std::string filename);
     void prettyprint();
-    void move (std::shared_ptr<Collection> source, std::shared_ptr<Collection> dest, Card * the_card);
+    void move (std::shared_ptr<Collection> source, std::shared_ptr<Collection> dest, std::shared_ptr<Player> the_card);
     int getCurrPlayer();
     int getOtherPlayer();
     std::shared_ptr<Player> getPlayer1();
     std::shared_ptr<Player> getPlayer2();
     void setDeck(std::string filename, int player);
+    void draw();
     bool getEnd();
     bool getBegin();
-    void Gamepush(std::shared_ptr<Collection> where, int who, Card* c);
-    void Gamepop(std::shared_ptr<Collection> where, int who, Card* c);
+    void Gamepush(std::shared_ptr<Collection> where, int who, std::shared_ptr<Player> c);
+    void Gamepop(std::shared_ptr<Collection> where, int who, std::shared_ptr<Player> c);
     void startTurn();
     void endTurn();
     void MinionattackPlayer(int index_1);

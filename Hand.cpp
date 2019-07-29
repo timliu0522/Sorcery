@@ -11,17 +11,18 @@
 Hand::~Hand() {
     for (int i = 0; i < 2; i++) {
         while (!cardlist[i].empty()) {
-            delete cardlist[i].back();
+            // delete cardlist[i].back();
             cardlist[i].pop_back();
         }
     }
 }
 
-void Hand::push_card(int player, Card *in) {
+void Hand::push_card(int player, std::shared_ptr<Card> in) {
+    in->set_belong(CollectionType::HAND);
     cardlist[player].emplace_back(in);
 }
 
-void Hand::pop_card(int player, Card *out) {
+void Hand::pop_card(int player, std::shared_ptr<Card> out) {
     for (auto it = cardlist[player].begin(); it != cardlist[player].end(); it ++) {
         if (*it != out) continue;
         cardlist[player].erase(it);
@@ -29,9 +30,19 @@ void Hand::pop_card(int player, Card *out) {
     }
 }
 
-void Hand::notify(Subject<Card *, Effect> &whoFrom) {
+void Hand::pop_selected(int player, int idx, int tar, int idx2) {
+    if (cardlist[player].size() < idx) {
+        throw 7;
+    }
+    setInfo(cardlist[player][idx]);
+    setState(Effect(EffectType::MOV, player, tar, CollectionType::BOARD, idx2, 0, 2));
+    notifyObservers();
+
+}
+
+void Hand::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().notified_type != 2) return;
-    if (whoFrom.getState().type == EffectType::MLC && whoFrom.getState().destination == CollectionType::HAND) {
+    if (whoFrom.getState().type == EffectType::MOV && whoFrom.getState().destination == CollectionType::HAND) {
         push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
     }
 }

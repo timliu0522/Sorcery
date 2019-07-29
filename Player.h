@@ -7,10 +7,11 @@
 
 #include <stdio.h>
 #include <string>
+#include "Observer.h"
+#include "Card.h"
 
 
-
-class Player {
+class Player : public Observer<std::shared_ptr<Card>, Effect>{
     std::string name;
     int health;
     int magic;
@@ -22,7 +23,7 @@ public:
     void setMagic(int n);
     bool check_death();
     Player (std::string);
-
+    void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
 

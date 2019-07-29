@@ -27,3 +27,34 @@ int Card::get_player() {
     return player;
 }
 
+int Card::get_attack() {
+    return attack;
+}
+int Card::get_defence() {
+    return defence;
+}
+bool Card::has_activated() {
+    return has_active;
+}
+bool Card::get_activated_cost() {
+    return activated_cost;
+}
+bool Card::get_action_left() {
+    return action_number - action_performed;
+}
+
+CollectionType Card::get_belong() {
+    return belonging;
+}
+
+void Card::set_belong(CollectionType c) {
+    belonging = c;
+}
+
+void Card::add_action() {
+    action_performed += 1;
+}
+
+Effect Card::get_effect() {
+    return effect;
+}

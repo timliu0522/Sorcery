@@ -45,3 +45,11 @@ bool Player::check_death() {
     }
 }
 
+void Player::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
+    if (whoFrom.getState().notified_type != 3) return;
+    if (whoFrom.getState().type == EffectType::SOT) {
+        magic += 1;
+    } else if (whoFrom.getState().type == EffectType::DMG) {
+        health -= whoFrom.getState().value1;
+    }
+}

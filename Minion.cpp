@@ -3,22 +3,12 @@
 //
 #include "Minion.h"
 
-Minion::Minion(int player) : Card(player) {}
+Minion::Minion(int player) : Card(player) {
+    name = "Minion";
+}
 
-int Minion::get_attack() {
-    return attack;
-}
-int Minion::get_defence() {
-    return defence;
-}
-bool Minion::has_activated() {
-    return has_active;
-}
-bool Minion::get_activated_cost() {
-    return activated_cost;
-}
-bool Minion::get_action_left() {
-    return action_number - action_performed;
+void Minion::notify(Subject<Card *, Effect> &whoFrom) {
+    
 }
 bool Minion::check_death() {
     if (get_defence() == 0) {
@@ -28,8 +18,4 @@ bool Minion::check_death() {
     }
     else
         return false;
-}
-
-void Minion::notify(Subject<Card *, Effect> &whoFrom) {
-    
 }

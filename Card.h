@@ -10,8 +10,9 @@
 #include "Observer.h"
 #include "State.h"
 #include <string>
+#include <memory>
 
-class Card : public Subject<Card *, Effect>, public Observer<Card *, Effect> {
+class Card : public Subject<std::shared_ptr<Card>, Effect>, public Observer<std::shared_ptr<Card>, Effect>, public std::enable_shared_from_this<Card> {
 protected:
     std::string name;
     std::string description;
@@ -20,6 +21,14 @@ protected:
     int player;
     bool has_target;
     Effect effect;
+    CollectionType belonging = CollectionType::DECK;
+
+    int attack = 0;
+    int defence = 0;
+    int action_number = 0;
+    int action_performed = 0;
+    bool has_active = 0;
+    int activated_cost = 0;
 
 public:
     Card(int player, bool);
@@ -28,7 +37,16 @@ public:
     std::string get_type();
     int get_player();
     bool can_target();
-    virtual void notify(Subject<Card *, Effect> &whoFrom) override = 0;
+    CollectionType get_belong();
+    Effect get_effect();
+    void set_belong(CollectionType);
+    void add_action();
+    virtual int get_attack();
+    virtual int get_defence();
+    virtual bool has_activated();
+    virtual bool get_activated_cost();
+    virtual bool get_action_left();
+    virtual void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override = 0;
 };
 
 

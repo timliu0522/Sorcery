@@ -12,16 +12,19 @@
 #include "Collection.h"
 
 class Board : public Collection {
-    std::vector<Card *> ritual[2];
+    std::vector<std::shared_ptr<Card>> ritual[2];
     int cur_player;
 
 public:
     Board();
     ~Board();
-    virtual void push_card(int player, Card *in) override;
-    virtual void pop_card(int player, Card *out) override;
+    virtual void push_card(int player, std::shared_ptr<Card>in) override;
+    virtual void pop_card(int player, std::shared_ptr<Card> out) override;
+    void attackPlayer(int player, int idx);
+    void attackMinion(int player, int idx1, int idx2);
+    void useCard(int player, int idx, int tar = -1, int idx2 = -1);
     void notify_APNAP();
-    virtual void notify(Subject<Card *, Effect> &whoFrom) override;
+    virtual void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
 #endif /* Board_h */

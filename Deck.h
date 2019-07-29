@@ -10,8 +10,9 @@ public:
     Deck();
     ~Deck();
     void load_deck(std::string filename, int num);
-    void push_card(int player, Card *in) override;
-    void pop_card(int player, Card *out) override;
+    void push_card(int player, std::shared_ptr<Card>) override;
+    void pop_card(int player, std::shared_ptr<Card>) override;
+    void pop_top(int player);
 };
 
 

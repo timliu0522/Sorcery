@@ -267,6 +267,23 @@ int main(int argc, char *argv[]) {
                 case 6:
                     std::cout<<"Please provide which minion you would like to inspect."<<std::endl;
                     break;
+                case 7:
+                    std::cout<<"Selected card does not exist"<<std::endl;
+                    break;
+                case 8:
+                    std::cout<<"Card cannot target"<<std::endl;
+                    break;
+                case 9:
+                    std::cout<<"Board is full, cannot play"<<std::endl;
+                    break;
+                case 10:
+                    std::cout<<"Need valid target"<<std::endl;
+                    break;
+                case 11:
+                    std::cout<<"No enough action point"<<std::endl;
+                    break;
+                case 12:
+                    std::cout<<"No activated ability";
             }
         }
         if (game.getWinner() != "None") {
