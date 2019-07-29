@@ -40,8 +40,8 @@ public:
     void draw();
     bool getEnd();
     bool getBegin();
-    void Gamepush(std::shared_ptr<Collection> where, int who, std::shared_ptr<Player> c);
-    void Gamepop(std::shared_ptr<Collection> where, int who, std::shared_ptr<Player> c);
+    void Gamepush(std::shared_ptr<Collection> where, int who, std::shared_ptr<Card> c);
+    void Gamepop(std::shared_ptr<Collection> where, int who, std::shared_ptr<Card> c);
     void startTurn();
     void endTurn();
     void MinionattackPlayer(int index_1);
