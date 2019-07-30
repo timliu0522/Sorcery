@@ -10,7 +10,7 @@ class Dark_Ritual : public Ritual {
 
 public:
     Dark_Ritual(int player);
-    void start_turn() override;
+    void start_turn(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
 #endif //SORCERY_DARK_RITUAL_H

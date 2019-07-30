@@ -318,8 +318,4 @@ std::string Game::getWinner() {
     }
 }
 
-void Game::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
-    if (whoFrom.getState().type == EffectType::RES) {
-        grave->pop_top(whoFrom.getState().player);
-    }
-}
+void Game::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {}

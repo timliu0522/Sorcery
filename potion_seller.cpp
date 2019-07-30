@@ -19,8 +19,9 @@ Potion_Seller::Potion_Seller(int player) : Minion(player, false) {
     effect = Effect(EffectType::BUF, player, 1, CollectionType::BOARD, 0, 1, 2);
 }
 
-void Potion_Seller::end_turn() {
+void Potion_Seller::end_turn(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (!has_ability()) return;
+    if (whoFrom.getState().player != player) return;
     setInfo(shared_from_this());
     setState(effect);
     notifyObservers();
