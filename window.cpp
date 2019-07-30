@@ -76,6 +76,18 @@ void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {
     XFlush(d);
 }
 
+void Xwindow::drawRectangle(int x, int y, int width, int height, int colour) {
+    XSetForeground(d, gc, colours[colour]);
+    XDrawRectangle(d, w, gc, x, y, width, height);
+    XFlush(d);
+}
+
+void Xwindow::fillCircle(int x, int y, int width, int height, int colour) {
+    XSetForeground(d, gc, colours[colour]);
+    XDrawArc(d, w, gc, x, y, width, height, 0, 360*64);
+    XFlush(d);
+}
+
 void Xwindow::drawString(int x, int y, string msg) {
     XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
     XFlush(d);

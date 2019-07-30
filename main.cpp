@@ -4,6 +4,8 @@
 #include <sstream>
 #include <iterator>
 #include <iomanip>
+#include <cstdlib>
+#include <time>
 #include "Player.h"
 #include "game.h"
 
@@ -101,6 +103,12 @@ int main(int argc, char *argv[]) {
     // read in deck
     game.init_deck(0, deck_1);
     game.init_deck(1, deck_2);
+    
+    if (!test_mode) {
+        srand(time(nullptr));
+        int x = rand() % game
+    }
+        
 
 
 

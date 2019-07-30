@@ -14,9 +14,8 @@
 
 class GraphicsDisplay: public Observer<std::shared_ptr<Card>, Effect> {
     Xwindow display;
-    const int size;
 public:
-    GraphicsDisplay (int size);
+    GraphicsDisplay (Game g);
     
     void notify(Subject<std::shared_ptr<Card>, Effect> &whoNotified) override; // Notified if the grid is changed
     
