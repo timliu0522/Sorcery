@@ -28,7 +28,7 @@ public:
 
 template <typename InfoType, typename StateType>
 void Subject<InfoType, StateType>::attach(std::shared_ptr<Observer<InfoType, StateType>> o) {
-    observers.emplace_back(o);
+    observers.push_back(o);
 }
 
 template <typename InfoType, typename StateType>
