@@ -33,14 +33,19 @@ void Hand::pop_card(int player, std::shared_ptr<Card> out) {
     }
 }
 
-void Hand::pop_selected(int player, int idx, int tar, int idx2) {
+int Hand::pop_selected(int player, int idx, int tar, int idx2, int magic, bool test) {
     if (cardlist[player].size() < idx) {
         throw 7;
+    }
+    int cost = cardlist[player][idx - 1]->get_cost();
+    if (!test && cost > magic) {
+        throw 14;
     }
     setInfo(cardlist[player][idx - 1]);
     setState(Effect(EffectType::MOV, player, tar, CollectionType::BOARD, idx2, 0, 2));
     notifyObservers();
     cardlist[player].erase(cardlist[player].begin() + (idx - 1));
+    return cost;
 }
 
 void Hand::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
@@ -48,4 +53,11 @@ void Hand::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().type == EffectType::MLC && whoFrom.getState().destination == CollectionType::HAND) {
         push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
     }
+}
+
+void Hand::discard(int player, int i) {
+    if (cardlist[player].size() < i) {
+        throw 7;
+    }
+    cardlist[player].erase(cardlist[player].begin() + (i - 1));
 }

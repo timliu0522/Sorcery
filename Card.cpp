@@ -210,3 +210,7 @@ void Card::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
 void Card::add_enc(std::shared_ptr<Card> c) {
     enc.push_back(c);
 }
+
+std::vector<std::shared_ptr<Card>> Card::get_enc() {
+    return enc;
+}

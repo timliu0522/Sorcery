@@ -65,6 +65,7 @@ public:
     bool has_activated_r();
     virtual int get_activated_cost();
     virtual int get_action_left();
+    std::vector<std::shared_ptr<Card>> get_enc();
     virtual void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 

@@ -5,7 +5,6 @@
 #include <iterator>
 #include <iomanip>
 #include "game.h"
-#include "Graphics.h"
 
 // Modified main
 // + 1
@@ -14,7 +13,7 @@ int main(int argc, char *argv[]) {
     std::cin.exceptions(std::ios::eofbit|std::ios::failbit);
     std::string deck_1 = "default.deck";
     std::string deck_2 = "default.deck";
-    bool test_mode = true;
+    bool test_mode = false;
     bool graphics_mode = false;
     bool init = false;
     std::string init_cmd = "";
@@ -43,7 +42,7 @@ int main(int argc, char *argv[]) {
                 if (!ifs.is_open())
                     throw std::out_of_range("File for deck 2 not found");
             }
-            else if (cmd == "-test") { // enable test mode of the program
+            else if (cmd == "-testing") { // enable test mode of the program
                 test_mode = true;
             }
             else if (cmd == "-graphics") { // enable graphics for the program
@@ -155,6 +154,12 @@ int main(int argc, char *argv[]) {
                 game.draw();
             } else if (cmd == "discard" && test_mode) { // discard a card (test mode only)
                 std::cout<<"discard"<<std::endl;
+                if (iss.eof()) {
+                    throw 4;
+                }
+                int idx;
+                iss >> idx;
+                game.discard(idx);
             } else if (cmd == "attack") { // minions attack
                 int index_1, index_2;
                 if (iss.eof()) // not getting the index of the minion
@@ -186,7 +191,7 @@ int main(int argc, char *argv[]) {
                 // not getting the index of the target player
                 if (iss.eof()) {
                     try {
-                        game.PlayCard(index_1);
+                        game.PlayCard(index_1, test_mode);
                     } catch (int e) {
                         throw e;
                     }
@@ -202,7 +207,7 @@ int main(int argc, char *argv[]) {
                     std::cout << "play card " << index_1 << " target on player " << player << "'s minion " << index_2
                     << "." << std::endl;
                     try {
-                        game.PlayCard(index_1, player, index_2);
+                        game.PlayCard(index_1, test_mode, player, index_2);
                     } catch (int e) {
                         throw e;
                     }
@@ -217,7 +222,7 @@ int main(int argc, char *argv[]) {
                 // not getting the index of the target player
                 if (iss.eof()) {
                     try {
-                        game.UseCard(index_1);
+                        game.UseCard(index_1, test_mode);
                     } catch (int e) {
                         throw e;
                     }
@@ -233,7 +238,7 @@ int main(int argc, char *argv[]) {
                     std::cout << "use card " << index_1 << " target on player " << player << "'s minion " << index_2
                               << "." << std::endl;
                     try {
-                        game.UseCard(index_1, player, index_2);
+                        game.UseCard(index_1, test_mode, player, index_2);
                     } catch (int e) {
                         throw e;
                     }
@@ -243,7 +248,8 @@ int main(int argc, char *argv[]) {
                 if (iss.eof()) // not getting the index of the inspected minion
                     throw 6;
                 iss>>index;
-                std::cout<<"inspect minion "<<index<<std::endl;
+                //std::cout<<"inspect minion "<<index<<std::endl;
+                game.InspectMinion(index - 1);
             } else if (cmd == "hand") { // show the hand of the activated player
                 std::cout<<"hand"<<std::endl;
                 game.ShowHand();
@@ -293,8 +299,12 @@ int main(int argc, char *argv[]) {
                     break;
                 case 12:
                     std::cout<<"No activated ability"<<std::endl;
+                    break;
                 case 13:
                     std::cout<<"Empty collection"<<std::endl;
+                    break;
+                case 14:
+                    std::cout<<"Not enough magic"<<std::endl;
             }
         }
         if (game.getWinner() != "None") {

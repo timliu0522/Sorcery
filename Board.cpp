@@ -137,7 +137,7 @@ void Board::notify_APNAP() {
     notifyObservers();
 }
 
-void Board::useCard(int player, int idx, int tar, int idx2) {
+int Board::useCard(int player, int idx, int magic, bool test, int tar, int idx2) {
     if (cardlist[player].size() < idx) {
         throw 7;
     }
@@ -147,6 +147,10 @@ void Board::useCard(int player, int idx, int tar, int idx2) {
     if (!cardlist[player][idx - 1]->has_activated()) {
         throw 12;
     }
+    if (!test && cardlist[player][idx - 1]->get_activated_cost() > magic) {
+        throw 14;
+    }
+    int val = cardlist[player][idx - 1]->get_activated_cost();
     if (cardlist[player][idx - 1]->can_target()) {
         if (tar == -1) {
             throw 10;
@@ -172,6 +176,7 @@ void Board::useCard(int player, int idx, int tar, int idx2) {
             push_card(player, std::make_shared<Air_Elemental>(player));
         }
     }
+    return val;
 }
 
 void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {

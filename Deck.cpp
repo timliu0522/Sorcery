@@ -81,12 +81,11 @@ void Deck::pop_top(int player) {
 void Deck::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {}
 
 void Deck::shuffle() {
+    srand(time(0));
     for (int i = 0; i < 100; ++ i) {
-        srand(time(nullptr));
         int random_1 = rand() % get_list(0).size();
-        srand(time(nullptr));
         int random_2 = rand() % get_list(0).size();
-        std::swap(get_list(0).at(random_1), get_list(0).at(random_2));
+        std::swap(cardlist[0][random_1], cardlist[0][random_2]);
     }
     
     for (int i = 0; i < 100; ++ i) {
@@ -94,6 +93,6 @@ void Deck::shuffle() {
         int random_1 = rand() % get_list(1).size();
         srand(time(nullptr));
         int random_2 = rand() % get_list(1).size();
-        std::swap(get_list(1).at(random_1), get_list(1).at(random_2));
+        std::swap(cardlist[1][random_1], cardlist[1][random_2]);
     }
 }

@@ -31,7 +31,7 @@ void Player::setHealth(int n) {
 
 void Player::setMagic(int n) {
     if (n > 0) {
-        this->magic = 0;
+        this->magic = n;
     } else {
         this->magic = 0;
     }

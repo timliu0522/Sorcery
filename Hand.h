@@ -17,7 +17,8 @@ public:
     ~Hand();
     void push_card(int player, std::shared_ptr<Card> in) override;
     void pop_card(int player, std::shared_ptr<Card> out) override;
-    void pop_selected(int player, int idx, int, int);
+    int pop_selected(int player, int idx, int, int, int, bool = false);
+    void discard(int player, int i);
     void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 

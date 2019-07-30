@@ -22,7 +22,7 @@ public:
     virtual void pop_card(int player, std::shared_ptr<Card> out) override;
     void attackPlayer(int player, int idx);
     void attackMinion(int player, int idx1, int idx2);
-    void useCard(int player, int idx, int tar = -1, int idx2 = -1);
+    int useCard(int player, int idx, int magic, bool test, int tar = -1, int idx2 = -1);
     void notify_APNAP();
     virtual void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 

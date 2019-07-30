@@ -4,7 +4,6 @@
 
 #include "game.h"
 #include "ascii_graphics.h"
-#include "window.h"
 #include <vector>
 
 using namespace std;
@@ -232,6 +231,7 @@ void Game::prettyprint() {
     cout << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT << endl;
 }
 
+/*
 void Game::graphics_display() {
     Xwindow display;
     // Background
@@ -270,6 +270,7 @@ void Game::graphics_display() {
     display.drawString(910, 805, "Grave");
     
 }
+*/
 
 void Game::startTurn() {
     draw();
@@ -300,22 +301,75 @@ void Game::MinionattackMinion(int index_1, int index_2) {
         throw e;
     }
 }
-void Game::PlayCard(int index_1, int player, int index_2) {
+void Game::PlayCard(int index_1, bool test, int player, int index_2) {
     try {
-        hand->pop_selected(CurrPlayer, index_1, player, index_2);
+        int val = hand->pop_selected(CurrPlayer, index_1, player, index_2, players[CurrPlayer]->getMagic(), test);
+        players[CurrPlayer]->setMagic(players[CurrPlayer]->getMagic() - val);
     } catch (int e) {
         throw e;
     }
 }
 void Game::checkAbility(int index_1){}
-void Game::UseCard(int index_1, int player, int index_2){
+void Game::UseCard(int index_1, bool test, int player, int index_2) {
     try {
-        board->useCard(CurrPlayer, index_1, player, index_2);
+        int val = board->useCard(CurrPlayer, index_1, players[CurrPlayer]->getMagic(), test, player, index_2);
+        players[CurrPlayer]->setMagic(players[CurrPlayer]->getMagic() - val);
     } catch (int e) {
         throw e;
     }
 }
-void Game::InspectMinion(int index_1){}
+void Game::InspectMinion(int index_1){
+    int player = getCurrPlayer();
+    int size = board->get_size(player);
+    if (size < index_1) {
+        throw 7;
+    }
+    shared_ptr<Card> temp = board->get_list(player)[index_1];
+    vector<card_template_t> player_minion;
+    if (temp->has_activated_r()) {
+        player_minion.emplace_back(display_minion_activated_ability(temp->get_name(), temp->get_cost(), temp->get_attack(), temp->get_defence(), temp->get_activated_cost(), temp->get_description()));
+    } else {
+        player_minion.emplace_back(display_minion_triggered_ability(temp->get_name(), temp->get_cost(), temp->get_attack(), temp->get_defence(), temp->get_description()));
+    }
+    int size2 = temp->get_enc().size();
+    cout << size2;
+    for (int i = 0; i < size2; i++) {
+        shared_ptr<Card> e = temp->get_enc()[i];
+        if (e->get_attack() == 0) {
+            player_minion.emplace_back(display_enchantment(e->get_name(), e->get_cost(), e->get_description()));
+        } else {
+            string att = (e->get_attack() > 0 ? "+" + to_string(e->get_attack()) : "*" + to_string(-e->get_attack()));
+            string def = (e->get_defence() > 0 ? "+" + to_string(e->get_defence()) : "*" + to_string(-e->get_defence()));
+            player_minion.emplace_back(display_enchantment_attack_defence(e->get_name(), e->get_cost(), e->get_description(), att, def));
+        }
+    }
+    cout<<player_minion.size()<<endl;
+    for (int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
+        cout << player_minion.at(0).at(i) << endl;
+    }
+    player_minion.erase(player_minion.begin());
+    // int size3 = player_minion.size();
+    while (player_minion.size() > 5) {
+        vector<card_template_t> oneline;
+        for (int i = 0; i < 5; i++) {
+            oneline.emplace_back(player_minion.at(0));
+            player_minion.erase(player_minion.begin());
+        }
+        for (int k = 0; k < CARD_TEMPLATE_BORDER.size(); ++k) {
+            for (int q = 0; q < 5; q++) {
+                cout << oneline.at(q).at(k);
+            }
+            cout << endl;
+        }
+    }
+    for (int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
+        for (int j = 0; j < player_minion.size(); ++j) {
+            cout << player_minion.at(j).at(i);
+        }
+        cout << endl;
+    }
+
+}
 
 void Game::ShowHand() {
     int player = getCurrPlayer();
@@ -346,11 +400,11 @@ void Game::ShowHand() {
     }
 
     for (int i = 0; i < CARD_TEMPLATE_BORDER.size(); i++) {
-        cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
+        //cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
         for (int j = 0; j < player_hand.size(); j++) {
             cout << player_hand.at(j).at(i);
         }
-        cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
+        //cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
         cout << endl;
     }
 
@@ -367,3 +421,7 @@ std::string Game::getWinner() {
 }
 
 void Game::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {}
+
+void Game::discard(int i) {
+    hand->discard(CurrPlayer, i);
+}

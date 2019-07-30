@@ -46,9 +46,10 @@ public:
     void endTurn();
     void MinionattackPlayer(int index_1);
     void MinionattackMinion(int index_1, int index_2);
-    void PlayCard(int index_1, int player = -1, int index_2 = -1);
+    void PlayCard(int index_1, bool test = false, int player = -1, int index_2 = -1);
     void checkAbility(int index_1);
-    void UseCard(int index_1, int player = -1, int index_2 = -1);
+    void UseCard(int index_1, bool test = false, int player = -1, int index_2 = -1);
+    void discard(int i);
     void InspectMinion(int index_1);
     void ShowHand();
     std::string getWinner();
