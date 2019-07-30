@@ -47,6 +47,7 @@ GraphicsDisplay::GraphicsDisplay (Game g) {
 
 // Notified if the grid is changed
 void GraphicsDisplay::notify(Subject<std::shared_ptr<Card>, Effect> &whoNotified) {
+    if (whoNotified.getState() == EffectType::MEC)
     
 }
 

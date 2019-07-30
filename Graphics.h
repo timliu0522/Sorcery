@@ -9,6 +9,8 @@
 #ifndef SORCERY_GRAPHICS_H
 #define SORCERY_GRAPHICS_H
 #include "window.h"
+#include "Observer.h"
+#include "State.h"
 #include <vector>
 #include <iostream>
 
