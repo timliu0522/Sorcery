@@ -22,7 +22,6 @@ Fire_Elemental::Fire_Elemental(int player) : Minion(player, false) {
 void Fire_Elemental::meb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (!has_ability()) return;
     if (whoFrom.getInfo()->get_player() == 1 - player) {
-        std::cout << "Fire Elemental started\n";
         setInfo(whoFrom.getInfo());
         setState(effect);
         notifyObservers();

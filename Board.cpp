@@ -177,13 +177,11 @@ void Board::useCard(int player, int idx, int tar, int idx2) {
 void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().notified_type != 2) return;
     if (whoFrom.getState().type == EffectType::SOT) {
-        std::cout << "BOARD GET SOT\n";
         Effect tt = getState();
         setState(whoFrom.getState());
         notify_APNAP();
         setState(tt);
     } else if (whoFrom.getState().type == EffectType::EOT) {
-        std::cout << "BOARD GET EOT\n";
         Effect tt = getState();
         setState(whoFrom.getState());
         notify_APNAP();
@@ -200,7 +198,6 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
         setInfo(t);
         setState(tt);
     } else if (whoFrom.getState().type == EffectType::BUF) {
-        std::cout << "BOARD GET BUFF\n";
         std::shared_ptr<Card> t = getInfo();
         Effect tt = getState();
         setInfo(whoFrom.getInfo());
