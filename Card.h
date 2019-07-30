@@ -38,6 +38,7 @@ public:
     std::string get_name();
     std::string get_description();
     std::string get_type();
+    int get_cost();
     int get_player();
     bool can_target();
     CollectionType get_belong();

@@ -238,7 +238,15 @@ void Game::InspectMinion(int index_1){}
 
 void Game::ShowHand() {
     int player = getCurrPlayer();
-    int size = 
+    int size = hand->get_size(player);
+    vector<card_template_t> player_hand;
+    for (int i = 0; i < size; ++i) {
+        shared_ptr<Card> temp = hand->get_list(player).at(i);
+        if (temp->get_type() == "Spell")
+            player_hand.emplace_back(display_spell(temp->get_name(), temp->get_cost(), temp->get_description()));
+        else if (temp->get_type() == "Minion" && temp->has_activated() && temp->has_ability())
+            player_hand.emplace_back(display_minion_no_ability(<#std::string name#>, <#int cost#>, <#int attack#>, <#int defence#>))
+    }
 }
 
 std::string Game::getWinner() {
@@ -257,13 +265,3 @@ void Game::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     }
 }
 
-
-void Game::ShowHand() {
-    int player = getCurrPlayer();
-    int size = hand->get_size(player);
-    vector<card_template_t> player_hand;
-    for (int i = 0; i < size; ++i) {
-        if (hand->cardlist[player])
-        player_hand.emplace_back()
-    }
-}

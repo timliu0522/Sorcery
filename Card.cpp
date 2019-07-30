@@ -19,6 +19,10 @@ std::string Card::get_type() {
     return type;
 }
 
+int Card::get_cost() {
+    return cost;
+}
+
 bool Card::can_target() {
     return has_target;
 }
@@ -54,6 +58,7 @@ bool Card::has_activated() {
     for (auto i : enc) {
         ans = ans && i->has_ability();
     }
+    return ans;
 }
 
 bool Card::get_activated_cost() {
