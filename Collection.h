@@ -5,13 +5,9 @@
 #ifndef SORCERY_COLLECTION_H
 #define SORCERY_COLLECTION_H
 
-
-#include "Card.h"
-#include "Subject.h"
-#include "Observer.h"
-#include "State.h"
 #include <vector>
 #include <memory>
+#include "Card.h"
 
 class Collection : public Subject<std::shared_ptr<Card> , Effect>, public Observer<std::shared_ptr<Card>, Effect>, public std::enable_shared_from_this<Collection>{
 protected:

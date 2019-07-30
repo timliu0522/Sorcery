@@ -1,5 +1,4 @@
 #include "aura_of_power.h"
-#include "State.h"
 
 Aura_of_Power::Aura_of_Power(int player) : Ritual(player) {
     name = "Aura of Power";

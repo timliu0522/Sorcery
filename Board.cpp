@@ -3,7 +3,6 @@
 //
 
 #include "Board.h"
-#include "State.h"
 #include "all_cards.h"
 
 Board::Board() {

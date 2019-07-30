@@ -5,7 +5,6 @@
 #ifndef SORCERY_RITUAL_H
 #define SORCERY_RITUAL_H
 #include "Card.h"
-#include "State.h"
 
 class Ritual : public Card {
 public:

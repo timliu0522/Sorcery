@@ -7,7 +7,6 @@
 
 
 #include "Card.h"
-#include "State.h"
 
 class Minion : public Card {
 public:

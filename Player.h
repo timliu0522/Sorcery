@@ -6,9 +6,6 @@
 #define CODES_PLAYER_H
 
 #include <string>
-#include "Subject.h"
-#include "Observer.h"
-#include "State.h"
 #include "Card.h"
 
 
