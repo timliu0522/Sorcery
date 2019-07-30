@@ -101,12 +101,9 @@ int main(int argc, char *argv[]) {
     game.init_deck(0, deck_1);
     game.init_deck(1, deck_2);
 
-    /*
     if (!test_mode) {
-        srand(time(nullptr));
-        int x = rand() % game
+        game.getDeck()->shuffle();
     }
-     */
 
     game.init_game();
     game.startTurn();

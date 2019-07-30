@@ -59,11 +59,11 @@ shared_ptr<Player> Game::getPlayer1() {
 shared_ptr<Player> Game::getPlayer2() {
     return this->players[1];
 }
-/*
-void Game::setDeck(string filename, int player) {
-    this->deck->load_deck(filename, player);
+
+std::shared_ptr<Deck> Game::getDeck() {
+    return deck;
 }
-*/
+
 void Game::init_game() {
     for (int i = 0; i < 4; i++) {
         deck->pop_top(CurrPlayer);
