@@ -6,7 +6,6 @@
 //  Copyright © 2019 An Zhang. All rights reserved.
 //
 #include "dark_ritual.h"
-#include "State.h"
 
 Dark_Ritual::Dark_Ritual (int player) : Ritual(player) {
     name = "Dark Ritual";

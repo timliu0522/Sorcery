@@ -6,7 +6,6 @@
 #include <iomanip>
 #include <cstdlib>
 #include <ctime>
-#include "Player.h"
 #include "game.h"
 
 // Modified main

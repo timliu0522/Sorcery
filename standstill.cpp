@@ -7,7 +7,6 @@
 //  Copyright © 2019 An Zhang. All rights reserved.
 //
 #include "standstill.h"
-#include "State.h"
 
 Standstill::Standstill (int player) : Ritual(player) {
     name = "Standstill";

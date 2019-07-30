@@ -5,7 +5,7 @@
 #ifndef SORCERY_ENCHANTMENT_H
 #define SORCERY_ENCHANTMENT_H
 
-#include "Minion.h"
+#include "Card.h"
 
 class Enchantment : public Card {
 public:
