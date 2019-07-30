@@ -4,6 +4,7 @@
 
 #include "game.h"
 #include "ascii_graphics.h"
+#include "window.h"
 #include <vector>
 
 using namespace std;
@@ -66,6 +67,10 @@ std::shared_ptr<Deck> Game::getDeck() {
 
 std::shared_ptr<Hand> Game::getHand() {
     return hand;
+}
+
+std::shared_ptr<Board> Game::getBoard() {
+    return board;
 }
 
 void Game::init_game() {
@@ -225,6 +230,45 @@ void Game::prettyprint() {
         cout << EXTERNAL_BORDER_CHAR_LEFT_RIGHT;
     }
     cout << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT << endl;
+}
+
+void Game::graphics_display() {
+    Xwindow display;
+    // Background
+    display.fillRectangle(0, 0, 1005, 1200);
+    
+    // Player 2 stuff
+    display.drawRectangle(5, 5, 200, 190, Xwindow::White);
+    display.drawString(110, 100, "Ritual");
+    
+    display.drawRectangle(400, 5, 200, 190, Xwindow::White);
+    display.drawString(480, 45, getPlayer2()->getName());
+    display.fillCircle(410, 160, 20, 20, Xwindow::Red);
+    display.drawString(420, 170, to_string(getPlayer2()->getHealth()));
+    display.fillCircle(570, 160, 20, 20, Xwindow::Blue);
+    display.drawString(580, 170, to_string(getPlayer2()->getMagic()));
+    
+    display.drawRectangle(805, 5, 200, 190, Xwindow::White);
+    display.drawString(910, 100, "Grave");
+    
+    // Board stuff
+    display.fillRectangle(5, 300, 995, 600, Xwindow::Green);
+    display.fillRectangle(5, 595, 995, 10, Xwindow::Black);
+    
+    // Player 1 stuff
+    display.drawRectangle(5, 710, 200, 190, Xwindow::White);
+    display.drawString(110, 100, "Ritual");
+    
+    display.drawRectangle(400, 710, 200, 190, Xwindow::White);
+    display.drawString(480, 750, getPlayer1()->getName());
+    display.fillCircle(410, 865, 20, 20, Xwindow::Red);
+    display.drawString(420, 875, to_string(getPlayer1()->getHealth()));
+    display.fillCircle(570, 865, 20, 20, Xwindow::Blue);
+    display.drawString(580, 875, to_string(getPlayer1()->getMagic()));
+    
+    display.drawRectangle(805, 710, 200, 190, Xwindow::White);
+    display.drawString(910, 805, "Grave");
+    
 }
 
 void Game::startTurn() {

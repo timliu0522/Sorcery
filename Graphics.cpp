@@ -11,18 +11,18 @@
 GraphicsDisplay::GraphicsDisplay (Game *g) {
     sorcery = g;
     // Background
-    display.fillRectangle(0, 0, 1005, 900);
+    display.fillRectangle(0, 0, 1005, 1200);
     
     // Player 2 stuff
     display.drawRectangle(5, 5, 200, 190, Xwindow::White);
     display.drawString(110, 100, "Ritual");
     
     display.drawRectangle(400, 5, 200, 190, Xwindow::White);
-    display.drawString(480, 45, g.getPlayer2()->getName());
+    display.drawString(480, 45, sorcery->getPlayer2()->getName());
     display.fillCircle(410, 160, 20, 20, Xwindow::Red);
-    display.drawString(420, 170, g.getPlayer2()->getHealth());
+    display.drawString(420, 170, sorcery->getPlayer2()->getHealth());
     display.fillCircle(570, 160, 20, 20, Xwindow::Blue);
-    display.drawString(580, 170, g.getPlayer2()->getMagic());
+    display.drawString(580, 170, sorcery->getPlayer2()->getMagic());
     
     display.drawRectangle(805, 5, 200, 190, Xwindow::White);
     display.drawString(910, 100, "Grave");
@@ -36,11 +36,11 @@ GraphicsDisplay::GraphicsDisplay (Game *g) {
     display.drawString(110, 100, "Ritual");
     
     display.drawRectangle(400, 710, 200, 190, Xwindow::White);
-    display.drawString(480, 750, g.getPlayer1()->getName());
+    display.drawString(480, 750, sorcery->getPlayer1()->getName());
     display.fillCircle(410, 865, 20, 20, Xwindow::Red);
-    display.drawString(420, 875, g.getPlayer1()->getHealth());
+    display.drawString(420, 875, sorcery->getPlayer1()->getHealth());
     display.fillCircle(570, 865, 20, 20, Xwindow::Blue);
-    display.drawString(580, 875, g.getPlayer1()->getMagic());
+    display.drawString(580, 875, sorcery->getPlayer1()->getMagic());
     
     display.drawRectangle(805, 710, 200, 190, Xwindow::White);
     display.drawString(910, 805, "Grave");
@@ -51,17 +51,39 @@ void GraphicsDisplay::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (type == "Ritual" && whoFrom.getState().notified_type != 1) return;
     if (whoFrom.getState().type == EffectType::SOT) {
         display.drawPlayer(sorcery->getCurrPlayer());
-        for (int i = 0; i < sorcery->)
+        for (int i = 0; i < sorcery->getHand()->get_size(sorcery->getCurrPlayer()); ++ i) {
+            display.drawCard(5 + 200 * i, 910, sorcery->getHand()->get_list(sorcery->getCurrPlayer()).at(i), Xwindow::White);
+        }
     } else if (whoFrom.getState().type == EffectType::EOT) {
-        end_turn(whoFrom);
+    
     } else if (whoFrom.getState().type == EffectType::MEC) {
-        meb(whoFrom);
+        int player_num = sorcery->getCurrPlayer();
+        int index = sorcery->getBoard()->get_size(player_num) - 1;
+        if (player_num == 0)
+            display.drawCard(5 + 200 * index, 305, sorcery->getHand()->get_list(player_num).at(i), Xwindow::Blue);
+        else if (player_num == 1)
+            display.drawCard(5 + 200 * index, 610 sorcery->getHand()->get_list(player_num).at(i), Xwindow::Red);
     } else if (whoFrom.getState().type == EffectType::MLC) {
-        mlb(whoFrom);
+        display.fillRectangle(5, 300, 995, 600, Xwindow::Green);
+        display.fillRectangle(5, 595, 995, 10, Xwindow::Black);
+        int player_num = sorcery->getCurrPlayer();
+        int index = sorcery->getBoard()->get_size(player_num) - 1;
+        if (player_num == 0)
+            display.drawCard(5 + 200 * index, 305, sorcery->getHand()->get_list(player_num).at(i), Xwindow::Blue);
+        else if (player_num == 1)
+            display.drawCard(5 + 200 * index, 610 sorcery->getHand()->get_list(player_num).at(i), Xwindow::Red);
     } else if (whoFrom.getState().type == EffectType::DMG) {
-        take_dmg(whoFrom);
+        display.fillRectangle(5, 300, 995, 600, Xwindow::Green);
+        display.fillRectangle(5, 595, 995, 10, Xwindow::Black);
+        int player_num = sorcery->getCurrPlayer();
+        int index = sorcery->getBoard()->get_size(player_num) - 1;
+        if (player_num == 0)
+            display.drawCard(5 + 200 * index, 305, sorcery->getHand()->get_list(player_num).at(i), Xwindow::Blue);
+        else if (player_num == 1)
+            display.drawCard(5 + 200 * index, 610 sorcery->getHand()->get_list(player_num).at(i), Xwindow::Red);
+        display.drawPlayer(sorcery->getCurrPlayer());
     } else if (whoFrom.getState().type == EffectType::BUF) {
-        take_buf(whoFrom);
+        
     } else if (whoFrom.getState().type == EffectType::DEC) {
         dec();
     } else if (whoFrom.getState().type == EffectType::MOV) {

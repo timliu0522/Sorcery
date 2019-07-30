@@ -30,9 +30,11 @@ public:
     void fillCircle(int x, int y, int width, int height, int colour);
     
     // Draws a string
-    void drawCard (int x, int y, std::shared_ptr<Card>);
+    void drawString(int x, int y, std::string msg);
     
-    void drawPlayer (int player);
+    void drawBoard();
+    
+    void drawPlayer(Player p);
     
 };
 

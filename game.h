@@ -36,6 +36,7 @@ public:
     std::shared_ptr<Player> getPlayer2();
     std::shared_ptr<Deck> getDeck();
     std::shared_ptr<Hand> getHand();
+    std::shared_ptr<Board> getBoard();
     void draw();
     bool getEnd();
     bool getBegin();
@@ -53,6 +54,7 @@ public:
     std::string getWinner();
     void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
     void init_game();
+    void graphics_display();
 };
 
 
