@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
     }
      */
 
-
+    game.init_game();
 
     while (true) {
         std::cout<<"FUCKING"<<std::endl;

@@ -16,6 +16,7 @@ Game::Game(string p1, string p2) {
     game_end = false;
     game_begin = false;
 
+    deck->attach(hand);
     hand->attach(board);
     board->attach(hand);
     board->attach(players[0]);
@@ -58,9 +59,18 @@ shared_ptr<Player> Game::getPlayer1() {
 shared_ptr<Player> Game::getPlayer2() {
     return this->players[1];
 }
-
+/*
 void Game::setDeck(string filename, int player) {
     this->deck->load_deck(filename, player);
+}
+*/
+void Game::init_game() {
+    for (int i = 0; i < 4; i++) {
+        deck->pop_top(CurrPlayer);
+    }
+    for (int i = 0; i < 4; i++) {
+        deck->pop_top(1 - CurrPlayer);
+    }
 }
 
 void Game::draw() {
@@ -78,7 +88,7 @@ bool Game::getBegin() {
 }
 
 void Game::prettyprint() {
-    bool test = false; // test only, need to delete
+    //bool test = false; // test only, need to delete
 
 
     // top board
@@ -91,16 +101,23 @@ void Game::prettyprint() {
 
     // player 1 ritual, player, graveyard
     vector<card_template_t> player1_line;
-    if (test /* player 1 has ritual */) {
-        // player1_line.emplace_back(players[0]->getRitual());
+
+    if (!board->get_ritual(0).empty()) {
+        std::shared_ptr<Card> r =  board->get_ritual(0)[0];
+        player1_line.emplace_back(display_ritual(r->get_name(), r->get_cost(), r->get_activated_cost(), r->get_description(), r->get_defence()));
     } else {
         player1_line.emplace_back(CARD_TEMPLATE_BORDER);
     }
     player1_line.emplace_back(CARD_TEMPLATE_EMPTY);
     player1_line.emplace_back(display_player_card(1, players[0]->getName(), players[0]->getHealth(), players[0]->getMagic()));
     player1_line.emplace_back(CARD_TEMPLATE_EMPTY);
-    if (test /* player 1 has non-empty grave */) {
-        // player1_line.emplace_back(player[0]->getLastGrave());
+    if (!grave->get_list(0).empty()) {
+        std::shared_ptr<Card> c = grave->get_list(0).back();
+        if (c->has_activated_r()) {
+            player1_line.emplace_back(display_minion_activated_ability(c->get_name(), c->get_cost(), c->get_attack(), c->get_defence(), c->get_activated_cost(), c->get_description()));
+        } else {
+            player1_line.emplace_back(display_minion_triggered_ability(c->get_name(), c->get_cost(), c->get_attack(), c->get_defence(), c->get_description()));
+        }
     } else {
         player1_line.emplace_back(CARD_TEMPLATE_BORDER);
     }
@@ -117,9 +134,14 @@ void Game::prettyprint() {
     // player 1 minion
     vector<card_template_t> player1_minions;
     int player1_minion_num = 0;
-    // player1_minion_num = players[0]->getMinionSize();
+    player1_minion_num = board->get_list(0).size();
     for (int i = 0; i < player1_minion_num; ++i) {
-        // player1_minions.emplace_back(displayer_player_card(players[0]->getMinion[i]));
+        std::shared_ptr<Card> c = board->get_list(0)[i];
+        if (c->has_activated_r()) {
+            player1_minions.emplace_back(display_minion_activated_ability(c->get_name(), c->get_cost(), c->get_attack(), c->get_defence(), c->get_activated_cost(), c->get_description()));
+        } else {
+            player1_minions.emplace_back(display_minion_triggered_ability(c->get_name(), c->get_cost(), c->get_attack(), c->get_defence(), c->get_description()));
+        }
     }
     for (int i = 0; i < 5 - player1_minion_num; ++i) {
         player1_minions.emplace_back(CARD_TEMPLATE_BORDER);
@@ -142,11 +164,16 @@ void Game::prettyprint() {
     // player 2 minion
     vector<card_template_t> player2_minions;
     int player2_minion_num = 0;
-    // player2_minion_num = players[1]->getMinionSize();
+    player2_minion_num = board->get_list(1).size();
     for (int i = 0; i < player2_minion_num; ++i) {
-        // player2_minions.emplace_back(displayer_player_card(players[1]->getMinion[i]));
+        std::shared_ptr<Card> c = board->get_list(1)[i];
+        if (c->has_activated_r()) {
+            player2_minions.emplace_back(display_minion_activated_ability(c->get_name(), c->get_cost(), c->get_attack(), c->get_defence(), c->get_activated_cost(), c->get_description()));
+        } else {
+            player2_minions.emplace_back(display_minion_triggered_ability(c->get_name(), c->get_cost(), c->get_attack(), c->get_defence(), c->get_description()));
+        }
     }
-    for (int i = 0; i < 5 - player1_minion_num; ++i) {
+    for (int i = 0; i < 5 - player2_minion_num; ++i) {
         player2_minions.emplace_back(CARD_TEMPLATE_BORDER);
     }
     for (int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
@@ -160,16 +187,22 @@ void Game::prettyprint() {
 
     // player 2 ritual, player, graveyard
     vector<card_template_t> player2_line;
-    if (test /* player 2 has ritual */) {
-        // player2_line.emplace_back(players[1]->getRitual());
+    if (!board->get_ritual(1).empty()) {
+        std::shared_ptr<Card> r =  board->get_ritual(1)[0];
+        player2_line.emplace_back(display_ritual(r->get_name(), r->get_cost(), r->get_activated_cost(), r->get_description(), r->get_defence()));
     } else {
         player2_line.emplace_back(CARD_TEMPLATE_BORDER);
     }
     player2_line.emplace_back(CARD_TEMPLATE_EMPTY);
     player2_line.emplace_back(display_player_card(2, players[1]->getName(), players[1]->getHealth(), players[1]->getMagic()));
     player2_line.emplace_back(CARD_TEMPLATE_EMPTY);
-    if (test /* player 1 has non-empty grave */) {
-        // player2_line.emplace_back(player[1]->getLastGrave());
+    if (!grave->get_list(1).empty()) {
+        std::shared_ptr<Card> c = grave->get_list(1).back();
+        if (c->has_activated_r()) {
+            player2_line.emplace_back(display_minion_activated_ability(c->get_name(), c->get_cost(), c->get_attack(), c->get_defence(), c->get_activated_cost(), c->get_description()));
+        } else {
+            player2_line.emplace_back(display_minion_triggered_ability(c->get_name(), c->get_cost(), c->get_attack(), c->get_defence(), c->get_description()));
+        }
     } else {
         player2_line.emplace_back(CARD_TEMPLATE_BORDER);
     }
@@ -239,14 +272,40 @@ void Game::InspectMinion(int index_1){}
 void Game::ShowHand() {
     int player = getCurrPlayer();
     int size = hand->get_size(player);
+    cout << "HAND SIZE" << size << std::endl;
     vector<card_template_t> player_hand;
     for (int i = 0; i < size; ++i) {
         shared_ptr<Card> temp = hand->get_list(player).at(i);
         if (temp->get_type() == "Spell")
             player_hand.emplace_back(display_spell(temp->get_name(), temp->get_cost(), temp->get_description()));
-        else if (temp->get_type() == "Minion" && temp->has_activated() && temp->has_ability())
-            player_hand.emplace_back(display_minion_no_ability(<#std::string name#>, <#int cost#>, <#int attack#>, <#int defence#>))
+        else if (temp->get_type() == "Minion") {
+            if (temp->has_activated_r()) {
+                player_hand.emplace_back(display_minion_activated_ability(temp->get_name(), temp->get_cost(), temp->get_attack(), temp->get_defence(), temp->get_activated_cost(), temp->get_description()));
+            } else {
+                player_hand.emplace_back(display_minion_triggered_ability(temp->get_name(), temp->get_cost(), temp->get_attack(), temp->get_defence(), temp->get_description()));
+            }
+        } else if (temp->get_type() == "Ritual") {
+            player_hand.emplace_back(display_ritual(temp->get_name(), temp->get_cost(), temp->get_activated_cost(), temp->get_description(), temp->get_defence()));
+        } else if (temp->get_type() == "Enchantment") {
+            if (temp->get_attack() == 0) {
+                player_hand.emplace_back(display_enchantment(temp->get_name(), temp->get_cost(), temp->get_description()));
+            } else {
+                string att = (temp->get_attack() > 0 ? "+" + to_string(temp->get_attack()) : "*" + to_string(-temp->get_attack()));
+                string def = (temp->get_defence() > 0 ? "+" + to_string(temp->get_defence()) : "*" + to_string(-temp->get_defence()));
+                player_hand.emplace_back(display_enchantment_attack_defence(temp->get_name(), temp->get_cost(), temp->get_description(), att, def));
+            }
+        }
     }
+
+    for (int i = 0; i < CARD_TEMPLATE_BORDER.size(); i++) {
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
+        for (int j = 0; j < player_hand.size(); j++) {
+            cout << player_hand.at(j).at(i);
+        }
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
+        cout << endl;
+    }
+
 }
 
 std::string Game::getWinner() {
@@ -264,4 +323,3 @@ void Game::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
         grave->pop_top(whoFrom.getState().player);
     }
 }
-

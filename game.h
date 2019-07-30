@@ -50,6 +50,7 @@ public:
     void ShowHand();
     std::string getWinner();
     void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
+    void init_game();
 };
 
 
