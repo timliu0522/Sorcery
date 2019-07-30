@@ -33,6 +33,9 @@ void Board::push_card(int player, std::shared_ptr<Card> in) {
         ritual[player].push_back(in);
         ritual[player][0]->attach(shared_from_this());
     } else {
+        if (cardlist[player].size() == 5) {
+            throw 9;
+        }
         cardlist[player].emplace_back(in);
         int new_size = (int) cardlist[player].size();
         cardlist[player][cardlist[player].size() - 1]->attach(shared_from_this());
@@ -147,21 +150,24 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().notified_type != 2) return;
     if (whoFrom.getState().type == EffectType::SOT) {
         setState(whoFrom.getState());
-        notify_APNAP();
+        notifyObservers();
     } else if (whoFrom.getState().type == EffectType::EOT) {
         setState(whoFrom.getState());
-        notify_APNAP();
+        notifyObservers();
         cur_player = 1 - cur_player;
     } else if (whoFrom.getState().type == EffectType::MLC) {
          pop_card(0, whoFrom.getInfo());
     } else if (whoFrom.getState().type == EffectType::DMG) {
         setInfo(whoFrom.getInfo());
         setState(whoFrom.getState());
-        notify_APNAP();
+        if (whoFrom.getState().target == 3)
+            notify_APNAP();
+        else
+            notifyObservers();
     } else if (whoFrom.getState().type == EffectType::BUF) {
         setInfo(whoFrom.getInfo());
         setState(whoFrom.getState());
-        notify_APNAP();
+        notifyObservers();
     } else if (whoFrom.getState().type == EffectType::MEC) {
         push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
     } else if (whoFrom.getState().type == EffectType::MOV) {
@@ -191,21 +197,24 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
                         }
                         setState(whoFrom.getState());
                         setInfo(cardlist[whoFrom.getState().target][whoFrom.getState().value1 - 1]);
-                        notify_APNAP();
+                        notifyObservers();
                     } else {
                         if (ritual[whoFrom.getState().target].size() < 1) {
                             throw 7;
                         }
                         setState(c->get_effect());
                         setInfo(ritual[whoFrom.getState().target][0]);
-                        notify_APNAP();
+                        notifyObservers();
                     }
                 } else {
                     if (whoFrom.getState().target != -1) {
                         throw 8;
                     }
                     setState(whoFrom.getState());
-                    notify_APNAP();
+                    if (whoFrom.getState().type == EffectType::DMG && whoFrom.getState().target == 3)
+                        notify_APNAP();
+                    else
+                        notifyObservers();
                 }
             }
         } else if (whoFrom.getState().destination == CollectionType::GRAVE) {

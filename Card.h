@@ -41,6 +41,7 @@ public:
     CollectionType get_belong();
     Effect get_effect();
     void set_belong(CollectionType);
+    void set_reborn();
     void add_action();
     void add_damage(int);
     virtual void start_turn();

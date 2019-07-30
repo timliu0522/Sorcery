@@ -51,6 +51,10 @@ void Card::set_belong(CollectionType c) {
     belonging = c;
 }
 
+void Card::set_reborn() {
+    defence = 1;
+}
+
 void Card::add_action() {
     action_performed += 1;
 }
@@ -86,6 +90,7 @@ void Card::take_buf(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
 
 void Card::take_dmg(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     // target:: 0 - targeted, 1 - all friendly, 2 - all enemy, 3 - all
+
     bool dmg = false;
     dmg |= whoFrom.getState().target == 3;
     dmg |= (whoFrom.getState().target == 2 && whoFrom.getState().player == 1 - player);

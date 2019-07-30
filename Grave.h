@@ -17,6 +17,7 @@ public:
     ~Graveyard();
     void push_card(int player, std::shared_ptr<Card> in) override;
     void pop_card(int player, std::shared_ptr<Card> out) override;
+    void pop_top(int player);
     void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 

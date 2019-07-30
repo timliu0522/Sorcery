@@ -291,7 +291,9 @@ int main(int argc, char *argv[]) {
                     std::cout<<"No enough action point"<<std::endl;
                     break;
                 case 12:
-                    std::cout<<"No activated ability";
+                    std::cout<<"No activated ability"<<std::endl;
+                case 13:
+                    std::cout<<"Empty collection"<<std::endl;
             }
         }
         if (game.getWinner() != "None") {

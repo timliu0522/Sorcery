@@ -7,11 +7,10 @@
 //
 #include "blizzard.h"
 
-Blizzard::Blizzard(int player) : Spell(player) {
+Blizzard::Blizzard(int player) : Spell(player, false) {
     name = "Blizzard";
     description = "Deal 2 damage to all minions";
     type = "Spell";
     cost = 3;
-    need_target = false;
-    effect = Effect(EffectType::DMG, get_player(), 3, CollectionType::BOARD, 2);
+    effect = Effect(EffectType::DMG, player, 3, CollectionType::BOARD, 2);
 }

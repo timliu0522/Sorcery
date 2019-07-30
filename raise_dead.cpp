@@ -12,5 +12,5 @@ Raise_Dead::Raise_Dead(int player) : Spell(player, false) {
     description = "Resurrect the top minion in your graveyard and set its defence to 1";
     type = "Spell";
     cost = 1;
-    effect = effect = {EffectType::RES, player, 0, CollectionType::BOARD};
+    effect = {EffectType::RES, player, 0, CollectionType::BOARD};
 }

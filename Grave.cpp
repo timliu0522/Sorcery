@@ -31,10 +31,20 @@ void Graveyard::pop_card(int player, std::shared_ptr<Card> out) {
     }
 }
 
+void Graveyard::pop_top(int player) {
+    if (cardlist[player].size() <= 0) {
+        throw 13;
+    }
+    cardlist[player].back()->set_reborn();
+    setInfo(cardlist[player].back());
+    setState(Effect{EffectType::MEC, player, 0, CollectionType::BOARD});
+    notifyObservers();
+    cardlist[player].pop_back();
+}
+
 void Graveyard::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().notified_type != 2) return;
     if (whoFrom.getState().type == EffectType::MLC && whoFrom.getState().destination == CollectionType::GRAVE) {
         push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
     }
-
 }
