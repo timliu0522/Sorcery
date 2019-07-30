@@ -23,7 +23,7 @@ public:
     InfoType getInfo() const;
     void setInfo(InfoType);
     StateType getState() const;
-    ~Subject() = 0;
+    virtual ~Subject() = 0;
 };
 
 #endif //SORCERY_SUBJECT_H
