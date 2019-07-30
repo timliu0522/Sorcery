@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     std::cin.exceptions(std::ios::eofbit|std::ios::failbit);
     std::string deck_1 = "default.deck";
     std::string deck_2 = "default.deck";
-    bool test_mode = false;
+    bool test_mode = true;
     bool graphics_mode = false;
     bool init = false;
     std::string init_cmd = "";
@@ -156,6 +156,7 @@ int main(int argc, char *argv[]) {
                 break;
             } else if (cmd == "draw" && test_mode) { // draw a card (test mode only)
                 std::cout<<"draw"<<std::endl;
+                game.draw();
             } else if (cmd == "discard" && test_mode) { // discard a card (test mode only)
                 std::cout<<"discard"<<std::endl;
             } else if (cmd == "attack") { // minions attack
@@ -247,6 +248,7 @@ int main(int argc, char *argv[]) {
                 std::cout<<"inspect minion "<<index<<std::endl;
             } else if (cmd == "hand") { // show the hand of the activated player
                 std::cout<<"hand"<<std::endl;
+                game.ShowHand();
             } else if (cmd == "board") { // display the board of the game
                 game.prettyprint();
             } else {

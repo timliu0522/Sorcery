@@ -136,7 +136,7 @@ void Game::prettyprint() {
 
     // centre graphic
     for (int i = 0; i < CENTRE_GRAPHIC.size(); i++) {
-        cout << CENTRE_GRAPHIC.at(i);
+        cout << CENTRE_GRAPHIC.at(i) << endl;
     }
 
     // player 2 minion
@@ -235,7 +235,11 @@ void Game::UseCard(int index_1, int player, int index_2){
     }
 }
 void Game::InspectMinion(int index_1){}
-void Game::ShowHand(){}
+
+void Game::ShowHand() {
+    int player = getCurrPlayer();
+    int size = 
+}
 
 std::string Game::getWinner() {
     if (players[0]->getHealth() <= 0) {

@@ -25,6 +25,10 @@ public:
     void useCard(int player, int idx, int tar = -1, int idx2 = -1);
     void notify_APNAP();
     virtual void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
+
+    std::vector<std::shared_ptr<Card>> get_ritual(int p) {
+        return ritual[p];
+    }
 };
 
 #endif /* Board_h */
