@@ -10,6 +10,7 @@ class Fire_Elemental : public Minion {
 
 public:
     Fire_Elemental(int player);
+    void meb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
 #endif //SORCERY_FIRE_ELEMENTAL_H

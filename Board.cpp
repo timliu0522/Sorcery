@@ -31,6 +31,7 @@ void Board::push_card(int player, std::shared_ptr<Card> in) {
         }
         in->set_belong(CollectionType::BOARD);
         ritual[player].push_back(in);
+        ritual[player][0]->attach(shared_from_this());
     } else {
         cardlist[player].emplace_back(in);
         int new_size = (int) cardlist[player].size();
@@ -43,21 +44,24 @@ void Board::push_card(int player, std::shared_ptr<Card> in) {
     }
 }
 
-void Board::pop_card(int play, std::shared_ptr<Card>out) {
+void Board::pop_card(int place, std::shared_ptr<Card>out) {
+    CollectionType where = place == 0 ? CollectionType::GRAVE : CollectionType::HAND;
     for (int player = 0; player < 2; player ++) {
         int i = 0;
         for (auto it = cardlist[player].begin(); it != cardlist[player].end(); it++, i++) {
             if (*it != out) continue;
-            setState(Effect(EffectType::MLC, player, i, CollectionType::GRAVE));
+            setState(Effect(EffectType::MLC, player, i, where));
             notify_APNAP();
             // detach(*it);
-            out->set_belong(CollectionType::GRAVE);
+            out->set_belong(where);
+            out->reset();
             cardlist[player].erase(it);
             return;
         }
         for (auto it = ritual[player].begin(); it != cardlist[player].end(); it++) {
             if (*it != out) continue;
             // detach(*it);
+            out->set_belong(where);
             cardlist[player].erase(it);
             return;
         }
@@ -149,58 +153,65 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
         notify_APNAP();
         cur_player = 1 - cur_player;
     } else if (whoFrom.getState().type == EffectType::MLC) {
-        pop_card(0, whoFrom.getInfo());
+         pop_card(0, whoFrom.getInfo());
     } else if (whoFrom.getState().type == EffectType::DMG) {
+        setInfo(whoFrom.getInfo());
         setState(whoFrom.getState());
         notify_APNAP();
     } else if (whoFrom.getState().type == EffectType::BUF) {
+        setInfo(whoFrom.getInfo());
         setState(whoFrom.getState());
         notify_APNAP();
     } else if (whoFrom.getState().type == EffectType::MEC) {
         push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
     } else if (whoFrom.getState().type == EffectType::MOV) {
-        if (whoFrom.getState().destination != CollectionType::BOARD) return;
-        std::shared_ptr<Card> c = whoFrom.getInfo();
-        if (c->get_type() == "Minion") {
-            if (whoFrom.getState().target != -1) {
-                throw 8;
-            }
-            if (cardlist[whoFrom.getState().player].size() >= 5) {
-                throw 9;
-            }
-            push_card(whoFrom.getState().player, c);
-        } else if (c->get_type() == "Ritual") {
-            if (whoFrom.getState().target != -1) {
-                throw 8;
-            }
-            push_card(whoFrom.getState().player, c);
-        } else if (c->get_type() == "Spell") {
-            if (c->can_target()) {
-                if (whoFrom.getState().target == -1) {
-                    throw 10;
-                }
-                if (whoFrom.getState().value1 <= 5) {
-                    if (cardlist[whoFrom.getState().target].size() < whoFrom.getState().value1) {
-                        throw 7;
-                    }
-                    setState(whoFrom.getState());
-                    setInfo(cardlist[whoFrom.getState().target][whoFrom.getState().value1 - 1]);
-                    notify_APNAP();
-                } else {
-                    if (ritual[whoFrom.getState().target].size() < 1) {
-                        throw 7;
-                    }
-                    setState(c->get_effect());
-                    setInfo(ritual[whoFrom.getState().target][0]);
-                    notify_APNAP();
-                }
-            } else {
+        if (whoFrom.getState().destination == CollectionType::BOARD) {
+            std::shared_ptr<Card> c = whoFrom.getInfo();
+            if (c->get_type() == "Minion") {
                 if (whoFrom.getState().target != -1) {
                     throw 8;
                 }
-                setState(whoFrom.getState());
-                notify_APNAP();
+                if (cardlist[whoFrom.getState().player].size() >= 5) {
+                    throw 9;
+                }
+                push_card(whoFrom.getState().player, c);
+            } else if (c->get_type() == "Ritual") {
+                if (whoFrom.getState().target != -1) {
+                    throw 8;
+                }
+                push_card(whoFrom.getState().player, c);
+            } else if (c->get_type() == "Spell") {
+                if (c->can_target()) {
+                    if (whoFrom.getState().target == -1) {
+                        throw 10;
+                    }
+                    if (whoFrom.getState().value1 <= 5) {
+                        if (cardlist[whoFrom.getState().target].size() < whoFrom.getState().value1) {
+                            throw 7;
+                        }
+                        setState(whoFrom.getState());
+                        setInfo(cardlist[whoFrom.getState().target][whoFrom.getState().value1 - 1]);
+                        notify_APNAP();
+                    } else {
+                        if (ritual[whoFrom.getState().target].size() < 1) {
+                            throw 7;
+                        }
+                        setState(c->get_effect());
+                        setInfo(ritual[whoFrom.getState().target][0]);
+                        notify_APNAP();
+                    }
+                } else {
+                    if (whoFrom.getState().target != -1) {
+                        throw 8;
+                    }
+                    setState(whoFrom.getState());
+                    notify_APNAP();
+                }
             }
+        } else if (whoFrom.getState().destination == CollectionType::GRAVE) {
+            pop_card(0, whoFrom.getInfo());
+        } else if (whoFrom.getState().destination == CollectionType::HAND) {
+            pop_card(1, whoFrom.getInfo());
         }
     }
 }

@@ -37,7 +37,7 @@ void Hand::pop_selected(int player, int idx, int tar, int idx2) {
     setInfo(cardlist[player][idx]);
     setState(Effect(EffectType::MOV, player, tar, CollectionType::BOARD, idx2, 0, 2));
     notifyObservers();
-
+    cardlist[player].erase(cardlist[player].begin() + (idx - 1));
 }
 
 void Hand::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {

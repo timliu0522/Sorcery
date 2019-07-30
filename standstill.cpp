@@ -14,7 +14,16 @@ Standstill::Standstill (int player) : Ritual(player) {
     description = "Whenever a minion enters play, destroy it";
     type = "Ritual";
     cost = 3;
-    charge = 4;
-    act_cost = 2;
-    effect = Effect(EffectType::MEC, get_player(), 0, CollectionType::BOARD);
+    defence = 4;
+    activated_cost = 2;
+    effect = Effect(EffectType::MOV, player, 0, CollectionType::GRAVE);
+}
+
+void Standstill::meb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
+    if (get_defence() >= activated_cost) {
+        add_damage(activated_cost);
+        setInfo(whoFrom.getInfo());
+        setState(effect);
+        notifyObservers();
+    }
 }

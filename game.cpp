@@ -9,8 +9,8 @@
 using namespace std;
 
 Game::Game(string p1, string p2) {
-    players[0] = make_shared<Player>(p1);
-    players[1] = make_shared<Player>(p2);
+    players[0] = make_shared<Player>(p1, 0);
+    players[1] = make_shared<Player>(p2, 1);
     CurrPlayer = 0;
     OtherPlayer = 1;
     game_end = false;
@@ -120,7 +120,7 @@ void Game::PlayCard(int index_1, int player, int index_2) {
 void Game::checkAbility(int index_1){}
 void Game::UseCard(int index_1, int player, int index_2){
     try {
-
+        board->useCard(CurrPlayer, index_1, player, index_2);
     } catch (int e) {
         throw e;
     }
@@ -135,5 +135,11 @@ std::string Game::getWinner() {
         return players[0]->getName();
     } else {
         return "None";
+    }
+}
+
+void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
+    if (whoFrom.getState().type == EffectType::RES) {
+
     }
 }

@@ -10,11 +10,9 @@
 #include "State.h"
 
 class Minion : public Card {
-    virtual bool check_death();
 public:
-    Minion(int player);
-    ~Minion();
-    virtual void notify(Subject<Card *, Effect> &whoFrom) override;
+    Minion(int player, bool);
+    virtual void start_turn() override;
 };
 
 

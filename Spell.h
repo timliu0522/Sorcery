@@ -7,11 +7,8 @@
 #include "Card.h"
 
 class Spell : public Card {
-protected:
-    bool need_target;
     
 public:
-    Spell(int player);
-    void notify(Subject<Card*, Effect> &whoFrom) override;
+    Spell(int player, bool has);
 };
 #endif //SORCERY_SPELL_H
