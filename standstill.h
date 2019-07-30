@@ -10,6 +10,7 @@ class Standstill : public Ritual {
 
 public:
     Standstill(int player);
+    void meb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
 #endif //SORCERY_STANDSTILL_H

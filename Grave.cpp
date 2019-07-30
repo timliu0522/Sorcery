@@ -1,4 +1,4 @@
-//
+  //
 //  Grave.cpp
 //  Sorcery
 //
@@ -36,4 +36,5 @@ void Graveyard::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().type == EffectType::MLC && whoFrom.getState().destination == CollectionType::GRAVE) {
         push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
     }
+
 }

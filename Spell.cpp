@@ -7,8 +7,4 @@
 //
 #include "Spell.h"
 
-Spell::Spell(int player) : Card(player) {}
-
-void Spell::notify(Subject<Card*, Effect> &whoFrom) {
-    
-}
+Spell::Spell(int player, bool has) : Card(player, has) {}

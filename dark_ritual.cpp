@@ -13,7 +13,16 @@ Dark_Ritual::Dark_Ritual (int player) : Ritual(player) {
     description = "At the start of your turn, gain 1 magic";
     type = "Ritual";
     cost = 0;
-    charge = 5;
-    act_cost = 1;
-    effect = Effect(EffectType::SOT, get_player(), 0, CollectionType::HAND);
+    defence = 5;
+    activated_cost = 1;
+    effect = Effect(EffectType::BUF, player, 0, CollectionType::HAND);
+}
+
+void Dark_Ritual::start_turn() {
+    if (get_defence() >= activated_cost) {
+        add_damage(activated_cost);
+        setInfo(shared_from_this());
+        setState(effect);
+        notifyObservers();
+    }
 }

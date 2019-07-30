@@ -7,12 +7,11 @@
 //
 #include "banish.h"
 
-Banish::Banish(int player) : Spell(player) {
+Banish::Banish(int player) : Spell(player, true) {
     name = "Banish";
     description = "Destroy target minion or ritual";
     type = "Spell";
     cost = 2;
-    need_target = true;
-    effect = Effect(EffectType::MOV, get_player(), 0, CollectionType::BOARD);
+    effect = Effect(EffectType::MOV, player, 0, CollectionType::GRAVE);
 }
 

@@ -15,6 +15,7 @@ class Bone_Golem : public Minion {
     
 public:
     Bone_Golem(int player);
+    void mlb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
 #endif //SORCERY_EARTH_ELEMENTAL_H

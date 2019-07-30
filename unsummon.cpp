@@ -7,11 +7,10 @@
 //
 #include "unsummon.h"
 
-Unsummon::Unsummon(int player) : Spell(player) {
+Unsummon::Unsummon(int player) : Spell(player, true) {
     name = "Unsummon";
     description = "Return target minion to its owner's hand";
     type = "Spell";
     cost = 1;
-    need_target = true;
-    effect = Effect(EffectType::MLC, get_player(), 0, CollectionType::HAND);
+    effect = Effect(EffectType::MOV, player, 0, CollectionType::HAND);
 }

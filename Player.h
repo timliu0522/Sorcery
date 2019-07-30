@@ -15,6 +15,7 @@ class Player : public Observer<std::shared_ptr<Card>, Effect>{
     std::string name;
     int health;
     int magic;
+    int idx;
 public:
     int getHealth();
     int getMagic();
@@ -22,7 +23,7 @@ public:
     void setHealth(int n);
     void setMagic(int n);
     bool check_death();
-    Player (std::string);
+    Player (std::string, int);
     void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 

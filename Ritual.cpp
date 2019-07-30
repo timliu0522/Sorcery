@@ -7,9 +7,6 @@
 //
 #include "Ritual.h"
 
-Ritual::Ritual(int player) : Card(player) {}
+Ritual::Ritual(int player) : Card(player, false) {}
 
-void Ritual::notify(Subject<Card *, Effect> &whoFrom) {
-    
-}
-
+void Ritual::take_dmg(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {}

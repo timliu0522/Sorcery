@@ -7,11 +7,10 @@
 //
 #include "disenchant.h"
 
-Disenchant::Disenchant(int player) : Spell(player) {
+Disenchant::Disenchant(int player) : Spell(player, true) {
     name = "Disenchant";
     description = "Destroy the top enchantment on target minion";
     type = "Spell";
     cost = 1;
-    need_target = true;
-    effect = Effect(EffectType::DEC, get_player(), 0, CollectionType::BOARD);
+    effect = Effect(EffectType::DEC, player, 0, CollectionType::BOARD);
 }

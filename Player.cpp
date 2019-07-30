@@ -4,7 +4,7 @@
 
 #include "Player.h"
 
-Player::Player (std::string given) : name {given} {
+Player::Player (std::string given, int idx) : name {given}, idx{idx} {
     this->health = 20;
     this->magic = 0;
 }
@@ -51,5 +51,9 @@ void Player::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
         magic += 1;
     } else if (whoFrom.getState().type == EffectType::DMG) {
         health -= whoFrom.getState().value1;
+    } else if (whoFrom.getState().type == EffectType::BUF) {
+        if (whoFrom.getState().player == idx && whoFrom.getState().target == 5) {
+            magic += 1;
+        }
     }
 }

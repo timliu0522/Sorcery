@@ -10,6 +10,7 @@ class Potion_Seller : public Minion {
     
 public:
     Potion_Seller(int player);
+    void end_turn() override;
 };
 
 #endif //SORCERY_POTION_SELLER_H

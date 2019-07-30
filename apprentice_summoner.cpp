@@ -1,6 +1,6 @@
 #include "apprentice_summoner.h"
 
-Apprentice_Summoner::Apprentice_Summoner(int player) : Minion(player) {
+Apprentice_Summoner::Apprentice_Summoner(int player) : Minion(player, false) {
     name = "Apprentice Summoner";
     description = "Summon a 1/1 air elemental";
     type = "Minion";

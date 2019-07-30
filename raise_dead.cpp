@@ -7,10 +7,10 @@
 //
 #include "raise_dead.h"
 
-Raise_Dead::Raise_Dead(int player) : Spell(player) {
+Raise_Dead::Raise_Dead(int player) : Spell(player, false) {
     name = "Raise_Dead";
     description = "Resurrect the top minion in your graveyard and set its defence to 1";
     type = "Spell";
     cost = 1;
-    need_target = false;
+    effect = effect = {EffectType::RES, player, 0, CollectionType::BOARD};
 }
