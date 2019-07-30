@@ -34,7 +34,7 @@ void Hand::pop_selected(int player, int idx, int tar, int idx2) {
     if (cardlist[player].size() < idx) {
         throw 7;
     }
-    setInfo(cardlist[player][idx]);
+    setInfo(cardlist[player][idx - 1]);
     setState(Effect(EffectType::MOV, player, tar, CollectionType::BOARD, idx2, 0, 2));
     notifyObservers();
     cardlist[player].erase(cardlist[player].begin() + (idx - 1));

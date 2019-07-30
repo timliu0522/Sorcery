@@ -9,7 +9,7 @@
 class Silence : public Enchantment {
 
 public:
-    Silence(Minion* m);
+    Silence(int m);
 };
 
 #endif //SORCERY_SILENCE_H

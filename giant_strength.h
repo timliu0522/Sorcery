@@ -9,7 +9,7 @@
 class Giant_Strength : public Enchantment {
 
 public:
-    Giant_Strength(Minion* m);
+    Giant_Strength(int player);
 };
 
 #endif //SORCERY_GIANT_STRENGTH_H

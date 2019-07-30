@@ -8,7 +8,7 @@
 class Haste : public Enchantment {
     
 public:
-    Haste(Minion* m);
+    Haste(int);
 };
 
 #endif

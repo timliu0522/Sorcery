@@ -20,6 +20,7 @@ Potion_Seller::Potion_Seller(int player) : Minion(player, false) {
 }
 
 void Potion_Seller::end_turn() {
+    if (!has_ability()) return;
     setInfo(shared_from_this());
     setState(effect);
     notifyObservers();

@@ -9,7 +9,7 @@
 class Magic_Fatigue : public Enchantment {
 
 public:
-    Magic_Fatigue(Minion* m);
+    Magic_Fatigue(int m);
 };
 
 #endif //SORCERY_MAGIC_FATIGUE_H

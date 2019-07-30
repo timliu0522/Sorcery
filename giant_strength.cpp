@@ -7,8 +7,10 @@
 //
 #include "giant_strength.h"
 
-Giant_Strength::Giant_Strength (Minion* m) : Enchantment(m) { // +2 +2 enchantment
+Giant_Strength::Giant_Strength (int player) : Enchantment(player) { // +2 +2 enchantment
     name  = "Giant Strength";
     description = "";
     cost = 1;
+    attack = 2;
+    defence = 2;
 }

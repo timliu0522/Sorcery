@@ -7,9 +7,11 @@
 //
 #include "enrage.h"
 
-Enrage::Enrage (Minion* m) : Enchantment(m) { // *2 *2 enchantment
+Enrage::Enrage (int player) : Enchantment(player) { // *2 *2 enchantment
     name  = "Enrage";
     description = "";
     cost = 2;
+    attack = -2;
+    defence = -2;
 }
 

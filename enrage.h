@@ -13,7 +13,7 @@
 class Enrage : public Enchantment {
     
 public:
-    Enrage(Minion* m);
+    Enrage(int);
 };
 
 #endif

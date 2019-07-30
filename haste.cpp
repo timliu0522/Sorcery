@@ -7,8 +7,9 @@
 //
 #include "haste.h"
 
-Haste::Haste (Minion* m) : Enchantment(m) {
+Haste::Haste (int m) : Enchantment(m) {
     name  = "Haste";
     description = "Enchanted minion gains +1 action each turn";
     cost = 1;
+    action_number = 1;
 }

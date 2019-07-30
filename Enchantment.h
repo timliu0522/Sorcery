@@ -7,12 +7,9 @@
 
 #include "Minion.h"
 
-class Enchantment : public Minion {
-protected:
-    Minion *previous;
+class Enchantment : public Card {
 public:
-    Enchantment(Minion* m);
-    ~Enchantment();
+    Enchantment(int player);
 };
 
 #endif //SORCERY_ENCHANTMENT_H

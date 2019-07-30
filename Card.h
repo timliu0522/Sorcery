@@ -28,8 +28,10 @@ protected:
     int action_number = 0;
     int action_performed = 0;
     bool has_active = 0;
+    bool can_use = true;
     int activated_cost = 0;
     int dmg_taken = 0;
+    std::vector<std::shared_ptr<Card>> enc;
 
 public:
     Card(int player, bool);
@@ -44,6 +46,8 @@ public:
     void set_reborn();
     void add_action();
     void add_damage(int);
+    void add_enc(std::shared_ptr<Card>);
+    bool has_ability();
     virtual void start_turn();
     virtual void take_dmg(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
     virtual void take_buf(Subject<std::shared_ptr<Card>, Effect> &whoFrom);

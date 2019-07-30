@@ -21,7 +21,9 @@ Bone_Golem::Bone_Golem(int player) : Minion(player, false) {
 }
 
 void Bone_Golem::mlb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
-    attack += 1;
-    defence += 1;
+    if (has_ability()) {
+        attack += 1;
+        defence += 1;
+    }
 }
 

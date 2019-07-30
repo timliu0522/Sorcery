@@ -28,17 +28,50 @@ int Card::get_player() {
 }
 
 int Card::get_attack() {
-    return attack;
+    int ans = attack;
+    for (auto i : enc) {
+        if (i->get_attack() > 0) {
+            ans += i->get_attack();
+        } else if (i->get_attack() < 0) {
+            ans = ans * (- i->get_attack());
+        }
+    }
+    return ans;
 }
 int Card::get_defence() {
-    return defence;
+    int ans = defence;
+    for (auto i : enc) {
+        if (i->get_defence() > 0) {
+            ans += i->get_defence();
+        } else if (i->get_defence() < 0) {
+            ans = ans * (- i->get_defence());
+        }
+    }
+    return ans;
 }
 bool Card::has_activated() {
-    return has_active;
+    bool ans = has_active;
+    for (auto i : enc) {
+        ans = ans && i->has_ability();
+    }
 }
+
 bool Card::get_activated_cost() {
-    return activated_cost;
+    int ans = activated_cost;
+    for (auto i : enc) {
+        ans += i->get_activated_cost();
+    }
+    return ans;
 }
+
+bool Card::has_ability() {
+    bool ans = can_use;
+    for (auto i : enc) {
+        ans = ans && i->has_ability();
+    }
+    return ans;
+}
+
 bool Card::get_action_left() {
     return action_number - action_performed;
 }
@@ -68,9 +101,10 @@ Effect Card::get_effect() {
 }
 
 void Card::reset() {
-    dmg_taken = 0;
+    // dmg_taken = 0;
     action_performed = 0;
     action_number = 0;
+    enc.clear();
 }
 
 void Card::start_turn() {}
@@ -108,7 +142,17 @@ void Card::take_dmg(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
 
 void Card::mlb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {}
 void Card::meb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {}
-void Card::dec() {}
+void Card::dec() {
+    if (enc.size() > 0) {
+        enc.pop_back();
+    }
+    if (get_defence() <= 0) {
+        setInfo(shared_from_this());
+        setState(Effect{EffectType::MLC, player, 0, CollectionType::GRAVE, 0, 0, 2});
+        reset();
+        notifyObservers();
+    }
+}
 void Card::end_turn() {}
 
 void Card::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
@@ -132,4 +176,8 @@ void Card::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     } else if (whoFrom.getState().type == EffectType::SUM) {
 
     }
+}
+
+void Card::add_enc(std::shared_ptr<Card> c) {
+    enc.push_back(c);
 }

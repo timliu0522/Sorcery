@@ -7,8 +7,9 @@
 //
 #include "magic_fatigue.h"
 
-Magic_Fatigue::Magic_Fatigue (Minion* m) : Enchantment(m) {
+Magic_Fatigue::Magic_Fatigue (int m) : Enchantment(m) {
     name  = "Magic Fatigue";
     description = "Enchanted minion's activated ability costs 2 more";
     cost = 0;
+    activated_cost = 2;
 }

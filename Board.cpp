@@ -89,6 +89,9 @@ void Board::attackMinion(int player, int idx1, int idx2) {
     } else if (cardlist[1 - player].size() < idx2) {
         throw 7;
     }
+    if (cardlist[player][idx1 - 1]->get_action_left() <= 0) {
+        throw 11;
+    }
     cardlist[player][idx1 - 1]->add_action();
     setInfo(cardlist[player][idx1 - 1]);
     setState(Effect(EffectType::DMG, player, 0, CollectionType::BOARD, cardlist[1 - player][idx2 - 1]->get_attack(), 0, 0));
@@ -132,7 +135,7 @@ void Board::useCard(int player, int idx, int tar, int idx2) {
         }
         setState(cardlist[player][idx - 1]->get_effect());
         setInfo(cardlist[tar][idx2 - 1]);
-        notify_APNAP();
+        notifyObservers();
     } else {
         if (tar != -1) {
             throw 8;
@@ -195,7 +198,7 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
                         if (cardlist[whoFrom.getState().target].size() < whoFrom.getState().value1) {
                             throw 7;
                         }
-                        setState(whoFrom.getState());
+                        setState(c->get_effect());
                         setInfo(cardlist[whoFrom.getState().target][whoFrom.getState().value1 - 1]);
                         notifyObservers();
                     } else {
@@ -210,17 +213,27 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
                     if (whoFrom.getState().target != -1) {
                         throw 8;
                     }
-                    setState(whoFrom.getState());
-                    if (whoFrom.getState().type == EffectType::DMG && whoFrom.getState().target == 3)
+                    setState(c->get_effect());
+                    if (getState().type == EffectType::DMG && getState().target == 3)
                         notify_APNAP();
                     else
                         notifyObservers();
                 }
+            } else if (c->get_type() == "Enchantment") {
+                if (whoFrom.getState().target == -1) {
+                    throw 10;
+                }
+                if (cardlist[whoFrom.getState().target].size() < whoFrom.getState().value1) {
+                    throw 7;
+                }
+                cardlist[whoFrom.getState().target][whoFrom.getState().value1 - 1]->add_enc(c);
             }
         } else if (whoFrom.getState().destination == CollectionType::GRAVE) {
             pop_card(0, whoFrom.getInfo());
         } else if (whoFrom.getState().destination == CollectionType::HAND) {
             pop_card(1, whoFrom.getInfo());
         }
+    } else if (whoFrom.getState().type == EffectType::DEC) {
+
     }
 }
