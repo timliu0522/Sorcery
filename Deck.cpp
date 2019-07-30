@@ -6,63 +6,56 @@ Deck::Deck() {
     cards_left = 0;
 }
 
-Deck::~Deck() {
-    for (int i = 0; i < 2; i++) {
-        while (!cardlist[i].empty()) {
-            delete cardlist[i].back();
-            cardlist[i].pop_back();
-        }
-    }
-}
+Deck::~Deck() {}
 
 void Deck::load_deck(std::string filename, int num) {
     std::string cardname;
     std::ifstream ifs(filename);
     while(getline(ifs, cardname)) {
         if (cardname == "Air Elemental")
-            push_card(num, new Air_Elemental(num));
+            push_card(num, std::make_shared<Air_Elemental>(num));
         if (cardname == "Earth Elemental")
-            push_card(num, new Earth_Elemental(num));
+            push_card(num, std::make_shared<Earth_Elemental>(num));
         if (cardname == "Bone Golem")
-            push_card(num, new Bone_Golem(num));
+            push_card(num, std::make_shared<Bone_Golem>(num));
         if (cardname == "Apprentice Summoner")
-            push_card(num, new Apprentice_Summoner(num));
+            push_card(num, std::make_shared<Apprentice_Summoner>(num));
         if (cardname == "Fire Elemental")
-            push_card(num, new Fire_Elemental(num));
+            push_card(num, std::make_shared<Fire_Elemental>(num));
         if (cardname == "Master Summoner")
-            push_card(num, new Master_Summoner(num));
+            push_card(num, std::make_shared<Master_Summoner>(num));
         if (cardname == "Novice Pyromancer")
-            push_card(num, new Novice_Pyromancer(num));
+            push_card(num, std::make_shared<Novice_Pyromancer>(num));
         if (cardname == "Potion Seller")
-            push_card(num, new Potion_Seller(num));
+            push_card(num, std::make_shared<Potion_Seller>(num));
         if (cardname == "Silence")
-            push_card(num, new Silence(nullptr));
+            push_card(num, std::make_shared<Silence>(nullptr));
         if (cardname == "Giant Strength")
-            push_card(num, new Giant_Strength(nullptr));
+            push_card(num, std::make_shared<Giant_Strength>(nullptr));
         if (cardname == "Magic Fatigue")
-            push_card(num, new Magic_Fatigue(nullptr));
+            push_card(num, std::make_shared<Magic_Fatigue>(nullptr));
         if (cardname == "Haste")
-            push_card(num, new Haste(nullptr));
+            push_card(num, std::make_shared<Haste>(nullptr));
         if (cardname == "Enrage")
-            push_card(num, new Enrage(nullptr));
+            push_card(num, std::make_shared<Enrage>(nullptr));
         if (cardname == "Dark Ritual")
-            push_card(num, new Dark_Ritual(num));
+            push_card(num, std::make_shared<Dark_Ritual>(num));
         if (cardname == "Aura of Power")
-            push_card(num, new Aura_of_Power(num));
+            push_card(num, std::make_shared<Aura_of_Power>(num));
         if (cardname == "Standstill")
-            push_card(num, new Standstill(num));
+            push_card(num, std::make_shared<Standstill>(num));
         if (cardname == "Raise Dead")
-            push_card(num, new Raise_Dead(num));
+            push_card(num, std::make_shared<Raise_Dead>(num));
         if (cardname == "Recharge")
-            push_card(num, new Recharge(num));
+            push_card(num, std::make_shared<Recharge>(num));
         if (cardname == "Banish")
-            push_card(num, new Banish(num));
+            push_card(num, std::make_shared<Banish>(num));
         if (cardname == "Blizzard")
-            push_card(num, new Blizzard(num));
+            push_card(num, std::make_shared<Blizzard>(num));
         if (cardname == "Disenchant")
-            push_card(num, new Disenchant(num));
+            push_card(num, std::make_shared<Disenchant>(num));
         if (cardname == "Unsummon")
-            push_card(num, new Unsummon(num));
+            push_card(num, std::make_shared<Unsummon>(num));
     }
 }
 

@@ -52,7 +52,7 @@ public:
     void InspectMinion(int index_1);
     void ShowHand();
     std::string getWinner();
-    void notify()
+    void notify();
 };
 
 
