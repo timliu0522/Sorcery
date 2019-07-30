@@ -16,7 +16,7 @@ Fire_Elemental::Fire_Elemental(int player) : Minion(player, false) {
     defence = 2;
     has_active = false;
     activated_cost = 0;
-    effect = Effect{EffectType::DMG, player, 0, CollectionType::BOARD, 1, 0};
+    effect = Effect{EffectType::DMG, player, 0, CollectionType::BOARD, 1, 0, 2};
 }
 
 void Fire_Elemental::meb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {

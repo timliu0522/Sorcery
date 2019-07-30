@@ -59,9 +59,10 @@ public:
     virtual void reset();
     virtual int get_attack();
     virtual int get_defence();
+    int get_action_number();
     virtual bool has_activated();
     bool has_activated_r();
-    virtual bool get_activated_cost();
+    virtual int get_activated_cost();
     virtual bool get_action_left();
     virtual void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };

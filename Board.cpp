@@ -6,6 +6,7 @@
 #include "all_cards.h"
 
 Board::Board() {
+    cur_player = 0;
 }
 
 Board::~Board() {
@@ -31,14 +32,16 @@ void Board::push_card(int player, std::shared_ptr<Card> in) {
         in->set_belong(CollectionType::BOARD);
         ritual[player].push_back(in);
         ritual[player][0]->attach(shared_from_this());
+        attach(ritual[player][0]);
     } else {
         if (cardlist[player].size() == 5) {
             throw 9;
         }
+        in->set_belong(CollectionType::BOARD);
         cardlist[player].emplace_back(in);
         int new_size = (int) cardlist[player].size();
-        cardlist[player][cardlist[player].size() - 1]->attach(shared_from_this());
-        in->set_belong(CollectionType::BOARD);
+        cardlist[player][new_size - 1]->attach(shared_from_this());
+        attach(cardlist[player][new_size - 1]);
         if (in->get_type() == "Minion") {
             setInfo(in);
             setState(Effect(EffectType::MEC, player, new_size - 1, CollectionType::BOARD));
@@ -145,7 +148,7 @@ void Board::useCard(int player, int idx, int tar, int idx2) {
         if (cardlist[player].size() >= 5) {
             throw 9;
         }
-        for (int i = 0; i < getState().target && cardlist[player].size() < 5; i++) {
+        for (int i = 0; i < cardlist[player][idx - 1]->get_effect().target && cardlist[player].size() < 5; i++) {
             push_card(player, std::make_shared<Air_Elemental>(player));
         }
     }
@@ -154,9 +157,11 @@ void Board::useCard(int player, int idx, int tar, int idx2) {
 void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().notified_type != 2) return;
     if (whoFrom.getState().type == EffectType::SOT) {
+        std::cout << "BOARD GET SOT\n";
         setState(whoFrom.getState());
         notify_APNAP();
     } else if (whoFrom.getState().type == EffectType::EOT) {
+        std::cout << "BOARD GET EOT\n";
         setState(whoFrom.getState());
         notify_APNAP();
         cur_player = 1 - cur_player;
@@ -167,6 +172,7 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
         setState(whoFrom.getState());
         notify_APNAP();
     } else if (whoFrom.getState().type == EffectType::BUF) {
+        std::cout << "BOARD GET BUFF\n";
         setInfo(whoFrom.getInfo());
         setState(whoFrom.getState());
         notify_APNAP();

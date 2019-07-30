@@ -14,7 +14,7 @@ Dark_Ritual::Dark_Ritual (int player) : Ritual(player) {
     cost = 0;
     defence = 5;
     activated_cost = 1;
-    effect = Effect(EffectType::BUF, player, 0, CollectionType::HAND);
+    effect = Effect(EffectType::BUF, player, 5, CollectionType::HAND, 0, 0, 2);
 }
 
 void Dark_Ritual::start_turn() {

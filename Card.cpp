@@ -51,7 +51,7 @@ int Card::get_defence() {
             ans = ans * (- i->get_defence());
         }
     }
-    return ans;
+    return ans - dmg_taken;
 }
 bool Card::has_activated() {
     bool ans = has_active;
@@ -65,11 +65,12 @@ bool Card::has_activated_r() {
     return has_active;
 }
 
-bool Card::get_activated_cost() {
+int Card::get_activated_cost() {
     int ans = activated_cost;
     for (auto i : enc) {
         ans += i->get_activated_cost();
     }
+    // std::cout<<ans<<std::endl;
     return ans;
 }
 
@@ -81,8 +82,16 @@ bool Card::has_ability() {
     return ans;
 }
 
+int Card::get_action_number() {
+    int ans = action_number;
+    for (auto i : enc) {
+        ans += i->get_action_number();
+    }
+    return ans;
+}
+
 bool Card::get_action_left() {
-    return action_number - action_performed;
+    return get_action_number() - action_performed;
 }
 
 CollectionType Card::get_belong() {
@@ -126,6 +135,7 @@ void Card::take_buf(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     buf |= (whoFrom.getState().player == player && whoFrom.getState().target == 1);
 
     if (buf) {
+        std::cout<<"BUFF TAKEN BY" << get_name() <<"\n";
         attack += whoFrom.getState().value1;
         defence += whoFrom.getState().value2;
     }

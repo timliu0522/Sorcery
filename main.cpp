@@ -195,6 +195,7 @@ int main(int argc, char *argv[]) {
                     }
                 } else {
                     iss >> player;
+                    player = player - 1;
                     if (iss.eof()) // not getting the index of the target minion
                         throw 4;
                     if (player != 0 && player != 1)
@@ -225,6 +226,7 @@ int main(int argc, char *argv[]) {
                     }
                 } else {
                     iss >> player;
+                    player -= 1;
                     if (iss.eof()) // not getting the index of the target minion
                         throw 4;
                     if (player != 0 && player != 1)

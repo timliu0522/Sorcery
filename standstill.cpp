@@ -15,7 +15,7 @@ Standstill::Standstill (int player) : Ritual(player) {
     cost = 3;
     defence = 4;
     activated_cost = 2;
-    effect = Effect(EffectType::MOV, player, 0, CollectionType::GRAVE);
+    effect = Effect(EffectType::MOV, player, 0, CollectionType::GRAVE, 0, 0, 2);
 }
 
 void Standstill::meb(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {

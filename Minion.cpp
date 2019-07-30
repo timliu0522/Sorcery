@@ -18,6 +18,7 @@ bool Minion::check_death() {
 }
 */
 void Minion::start_turn() {
+    std::cout << "NMSL\n";
     action_number = 1;
     action_performed = 0;
 }

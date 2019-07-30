@@ -227,12 +227,12 @@ void Game::startTurn() {
     draw();
     setState(Effect(EffectType::SOT, CurrPlayer, 0, CollectionType::BOARD, 0, 0, 2, 0));
     notifyObservers();
-    setState(Effect(EffectType::SOT, CurrPlayer, 0, CollectionType::BOARD, 0, 0, 3, 0));
-    notifyObservers();
+    //setState(Effect(EffectType::SOT, CurrPlayer, 0, CollectionType::BOARD, 0, 0, 3, 0));
+    //notifyObservers();
 }
 
 void Game::endTurn() {
-    setState(Effect(EffectType::EOT, CurrPlayer, 0, CollectionType::BOARD, 2));
+    setState(Effect(EffectType::EOT, CurrPlayer, 0, CollectionType::BOARD, 0, 0, 2, 0));
     notifyObservers();
     CurrPlayer = 1 - CurrPlayer;
     OtherPlayer = 1 - OtherPlayer;
@@ -272,10 +272,10 @@ void Game::InspectMinion(int index_1){}
 void Game::ShowHand() {
     int player = getCurrPlayer();
     int size = hand->get_size(player);
-    cout << "HAND SIZE" << size << std::endl;
+    // cout << "HAND SIZE " << size << std::endl;
     vector<card_template_t> player_hand;
     for (int i = 0; i < size; ++i) {
-        shared_ptr<Card> temp = hand->get_list(player).at(i);
+        shared_ptr<Card> temp = hand->get_list(player)[i];
         if (temp->get_type() == "Spell")
             player_hand.emplace_back(display_spell(temp->get_name(), temp->get_cost(), temp->get_description()));
         else if (temp->get_type() == "Minion") {

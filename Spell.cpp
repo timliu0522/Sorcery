@@ -7,4 +7,6 @@
 //
 #include "Spell.h"
 
-Spell::Spell(int player, bool has) : Card(player, has) {}
+Spell::Spell(int player, bool has) : Card(player, has) {
+    type = "Spell";
+}

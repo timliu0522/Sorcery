@@ -7,6 +7,8 @@
 //
 #include "Ritual.h"
 
-Ritual::Ritual(int player) : Card(player, false) {}
+Ritual::Ritual(int player) : Card(player, false) {
+    type = "Ritual";
+}
 
 void Ritual::take_dmg(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {}
