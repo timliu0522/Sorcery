@@ -12,6 +12,7 @@ void Deck::load_deck(std::string filename, int num) {
     std::string cardname;
     std::ifstream ifs(filename);
     while(getline(ifs, cardname)) {
+        std::cout << cardname << std::endl;
         if (cardname == "Air Elemental")
             push_card(num, std::make_shared<Air_Elemental>(num));
         if (cardname == "Earth Elemental")
@@ -57,6 +58,7 @@ void Deck::load_deck(std::string filename, int num) {
         if (cardname == "Unsummon")
             push_card(num, std::make_shared<Unsummon>(num));
     }
+    std::cout << "READ " << cardlist[num].size() << std::endl;
 }
 
 void Deck::push_card(int player, std::shared_ptr<Card> in) {
@@ -69,7 +71,7 @@ void Deck::pop_card(int player, std::shared_ptr<Card> out) {
 }
 
 void Deck::pop_top(int player) {
-    setState(Effect(EffectType::MOV, player, 0, CollectionType::HAND));
+    setState(Effect(EffectType::MOV, player, 0, CollectionType::HAND, 0, 0, 2));
     setInfo(cardlist[player].back());
     notifyObservers();
     cardlist[player].pop_back();

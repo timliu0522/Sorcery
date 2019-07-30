@@ -61,6 +61,10 @@ bool Card::has_activated() {
     return ans;
 }
 
+bool Card::has_activated_r() {
+    return has_active;
+}
+
 bool Card::get_activated_cost() {
     int ans = activated_cost;
     for (auto i : enc) {
