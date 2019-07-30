@@ -50,11 +50,11 @@ void Player::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().type == EffectType::SOT) {
         if (idx == whoFrom.getState().player)
             magic += 1;
-    } else if (whoFrom.getState().type == EffectType::DMG) {
+    } else if (whoFrom.getState().type == EffectType::DMG && whoFrom.getState().target == 5) {
         if (idx == whoFrom.getState().player)
             health -= whoFrom.getState().value1;
-    } else if (whoFrom.getState().type == EffectType::BUF) {
-        if (whoFrom.getState().player == idx && whoFrom.getState().target == 5) {
+    } else if (whoFrom.getState().type == EffectType::BUF && whoFrom.getState().target == 5) {
+        if (whoFrom.getState().player == idx) {
             magic += 1;
         }
     }

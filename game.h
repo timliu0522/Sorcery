@@ -15,7 +15,7 @@
 
 
 
-class Game : public Subject<std::shared_ptr<Card>, Effect>, public Observer<std::shared_ptr<Card>, Effect> {
+class Game : public Subject<std::shared_ptr<Card>, Effect>, public Observer<std::shared_ptr<Card>, Effect>, public std::enable_shared_from_this<Collection>{
     std::shared_ptr<Player> players[2];
     int CurrPlayer; // current player
     int OtherPlayer;

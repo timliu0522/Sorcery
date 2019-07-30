@@ -12,5 +12,5 @@ Recharge::Recharge(int player) : Spell(player, false) {
     description = "Your ritual gains 3 charges.";
     type = "Spell";
     cost = 1;
-    effect = Effect(EffectType::BUF, player, 4, CollectionType::BOARD, 0, 3);
+    effect = Effect(EffectType::BUF, player, 4, CollectionType::BOARD, 0, 3, 2);
 }

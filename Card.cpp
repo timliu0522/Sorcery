@@ -90,7 +90,7 @@ int Card::get_action_number() {
     return ans;
 }
 
-bool Card::get_action_left() {
+int Card::get_action_left() {
     return get_action_number() - action_performed;
 }
 
@@ -103,6 +103,7 @@ void Card::set_belong(CollectionType c) {
 }
 
 void Card::set_reborn() {
+    dmg_taken = 0;
     defence = 1;
 }
 
@@ -125,7 +126,7 @@ void Card::reset() {
     enc.clear();
 }
 
-void Card::start_turn() {}
+void Card::start_turn(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {}
 
 void Card::take_buf(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     // target:: 0 - targeted, 1 - all friendly, 2 - all enemy, 3 - all, 4 - ritual, 5 - player
@@ -133,6 +134,7 @@ void Card::take_buf(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (type == "Minion" && whoFrom.getState().target >= 4) return;
     bool buf = (whoFrom.getState().target == 0 && shared_from_this() == whoFrom.getInfo());
     buf |= (whoFrom.getState().player == player && whoFrom.getState().target == 1);
+    buf |= (whoFrom.getState().player == player && whoFrom.getState().target == 4);
 
     if (buf) {
         std::cout<<"BUFF TAKEN BY" << get_name() <<"\n";
@@ -143,17 +145,16 @@ void Card::take_buf(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
 
 void Card::take_dmg(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     // target:: 0 - targeted, 1 - all friendly, 2 - all enemy, 3 - all
-
     bool dmg = false;
     dmg |= whoFrom.getState().target == 3;
     dmg |= (whoFrom.getState().target == 2 && whoFrom.getState().player == 1 - player);
     dmg |= (whoFrom.getState().target == 0 && shared_from_this() == whoFrom.getInfo());
     if (dmg) {
+        std::cout<<"DMG TAKEN BY" << get_name() <<"\n";
         add_damage(whoFrom.getState().value1);
         if (get_defence() <= 0) {
             setInfo(shared_from_this());
             setState(Effect{EffectType::MLC, player, 0, CollectionType::GRAVE, 0, 0, 2});
-            reset();
             notifyObservers();
         }
     }
@@ -172,7 +173,18 @@ void Card::dec() {
         notifyObservers();
     }
 }
-void Card::end_turn() {}
+
+void Card::mov(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
+    if (shared_from_this() != whoFrom.getInfo()) return;
+    if (whoFrom.getState().destination == CollectionType::BOARD) return;
+    std::cout << "TO be moved\n";
+    setState(Effect(whoFrom.getState().type, player, whoFrom.getState().target, whoFrom.getState().destination, whoFrom.getState().value1, whoFrom.getState().value2, 2));
+    setInfo(shared_from_this());
+    notifyObservers();
+}
+
+void Card::end_turn(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
+}
 
 void Card::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (get_belong() != CollectionType::BOARD) return;
@@ -180,9 +192,9 @@ void Card::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (type == "Minion" && whoFrom.getState().notified_type != 0) return;
     if (type == "Ritual" && whoFrom.getState().notified_type != 1) return;
     if (whoFrom.getState().type == EffectType::SOT) {
-        start_turn();
+        start_turn(whoFrom);
     } else if (whoFrom.getState().type == EffectType::EOT) {
-        end_turn();
+        end_turn(whoFrom);
     } else if (whoFrom.getState().type == EffectType::MEC) {
         meb(whoFrom);
     } else if (whoFrom.getState().type == EffectType::MLC) {
@@ -193,8 +205,8 @@ void Card::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
         take_buf(whoFrom);
     } else if (whoFrom.getState().type == EffectType::DEC) {
         dec();
-    } else if (whoFrom.getState().type == EffectType::SUM) {
-
+    } else if (whoFrom.getState().type == EffectType::MOV) {
+        mov(whoFrom);
     }
 }
 

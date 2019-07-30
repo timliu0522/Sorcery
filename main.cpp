@@ -283,7 +283,7 @@ int main(int argc, char *argv[]) {
                     std::cout<<"Card cannot target"<<std::endl;
                     break;
                 case 9:
-                    std::cout<<"Board is full, cannot play"<<std::endl;
+                    std::cout<<"Collection is full, cannot play"<<std::endl;
                     break;
                 case 10:
                     std::cout<<"Need valid target"<<std::endl;

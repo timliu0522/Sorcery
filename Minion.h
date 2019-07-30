@@ -11,7 +11,7 @@
 class Minion : public Card {
 public:
     Minion(int player, bool);
-    virtual void start_turn() override;
+    virtual void start_turn(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
 

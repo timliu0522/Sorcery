@@ -17,8 +17,7 @@ bool Minion::check_death() {
         return false;
 }
 */
-void Minion::start_turn() {
-    std::cout << "NMSL\n";
+void Minion::start_turn(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     action_number = 1;
     action_performed = 0;
 }

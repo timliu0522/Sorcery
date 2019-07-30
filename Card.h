@@ -49,12 +49,13 @@ public:
     void add_damage(int);
     void add_enc(std::shared_ptr<Card>);
     bool has_ability();
-    virtual void start_turn();
+    virtual void start_turn(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
     virtual void take_dmg(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
     virtual void take_buf(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
     virtual void meb(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
     virtual void mlb(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
-    virtual void end_turn();
+    void mov(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
+    virtual void end_turn(Subject<std::shared_ptr<Card>, Effect> &whoFrom);
     virtual void dec();
     virtual void reset();
     virtual int get_attack();
@@ -63,7 +64,7 @@ public:
     virtual bool has_activated();
     bool has_activated_r();
     virtual int get_activated_cost();
-    virtual bool get_action_left();
+    virtual int get_action_left();
     virtual void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
