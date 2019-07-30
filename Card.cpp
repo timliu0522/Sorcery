@@ -137,7 +137,6 @@ void Card::take_buf(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     buf |= (whoFrom.getState().player == player && whoFrom.getState().target == 4);
 
     if (buf) {
-        std::cout<<"BUFF TAKEN BY" << get_name() <<"\n";
         attack += whoFrom.getState().value1;
         defence += whoFrom.getState().value2;
     }
@@ -150,7 +149,6 @@ void Card::take_dmg(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     dmg |= (whoFrom.getState().target == 2 && whoFrom.getState().player == 1 - player);
     dmg |= (whoFrom.getState().target == 0 && shared_from_this() == whoFrom.getInfo());
     if (dmg) {
-        std::cout<<"DMG TAKEN BY" << get_name() <<"\n";
         add_damage(whoFrom.getState().value1);
         if (get_defence() <= 0) {
             setInfo(shared_from_this());
@@ -177,7 +175,6 @@ void Card::dec() {
 void Card::mov(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (shared_from_this() != whoFrom.getInfo()) return;
     if (whoFrom.getState().destination == CollectionType::BOARD) return;
-    std::cout << "TO be moved\n";
     setState(Effect(whoFrom.getState().type, player, whoFrom.getState().target, whoFrom.getState().destination, whoFrom.getState().value1, whoFrom.getState().value2, 2));
     setInfo(shared_from_this());
     notifyObservers();
