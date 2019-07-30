@@ -4,8 +4,6 @@
 #include <sstream>
 #include <iterator>
 #include <iomanip>
-#include <cstdlib>
-#include <ctime>
 #include "game.h"
 
 // Modified main
