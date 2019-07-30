@@ -239,7 +239,7 @@ int main(int argc, char *argv[]) {
             } else if (cmd == "hand") { // show the hand of the activated player
                 std::cout<<"hand"<<std::endl;
             } else if (cmd == "board") { // display the board of the game
-                std::cout<<"board"<<std::endl;
+                game.prettyprint();
             } else {
                 std::cout << "No command named " << cmd << " found." << std::endl;
                 std::cout << "To see all commands available, use help command (lowercase)" << std::endl;

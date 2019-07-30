@@ -78,7 +78,116 @@ bool Game::getBegin() {
 }
 
 void Game::prettyprint() {
-        // wait for implementation
+    bool test = false; // test only, need to delete
+
+
+    // top board
+    cout << EXTERNAL_BORDER_CHAR_TOP_LEFT;
+    for (int i = 0; i < 33*5; i++) {
+        cout << EXTERNAL_BORDER_CHAR_LEFT_RIGHT;
+    }
+    cout << EXTERNAL_BORDER_CHAR_TOP_RIGHT << endl;
+
+
+    // player 1 ritual, player, graveyard
+    vector<card_template_t> player1_line;
+    if (test /* player 1 has ritual */) {
+        // player1_line.emplace_back(players[0]->getRitual());
+    } else {
+        player1_line.emplace_back(CARD_TEMPLATE_BORDER);
+    }
+    player1_line.emplace_back(CARD_TEMPLATE_EMPTY);
+    player1_line.emplace_back(display_player_card(1, players[0]->getName(), players[0]->getHealth(), players[0]->getMagic()));
+    player1_line.emplace_back(CARD_TEMPLATE_EMPTY);
+    if (test /* player 1 has non-empty grave */) {
+        // player1_line.emplace_back(player[0]->getLastGrave());
+    } else {
+        player1_line.emplace_back(CARD_TEMPLATE_BORDER);
+    }
+    for (int i = 0; i < CARD_TEMPLATE_BORDER.size(); i++) {
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
+        for (int j = 0; j < 5; j++) {
+            cout << player1_line.at(j).at(i);
+        }
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
+        cout << endl;
+    }
+
+
+    // player 1 minion
+    vector<card_template_t> player1_minions;
+    int player1_minion_num = 0;
+    // player1_minion_num = players[0]->getMinionSize();
+    for (int i = 0; i < player1_minion_num; ++i) {
+        // player1_minions.emplace_back(displayer_player_card(players[0]->getMinion[i]));
+    }
+    for (int i = 0; i < 5 - player1_minion_num; ++i) {
+        player1_minions.emplace_back(CARD_TEMPLATE_BORDER);
+    }
+    for (int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
+        for (int j = 0; j < 5; j++) {
+            cout << player1_minions.at(j).at(i);
+        }
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
+        cout << endl;
+    }
+
+
+    // centre graphic
+    for (int i = 0; i < CENTRE_GRAPHIC.size(); i++) {
+        cout << CENTRE_GRAPHIC.at(i);
+    }
+
+    // player 2 minion
+    vector<card_template_t> player2_minions;
+    int player2_minion_num = 0;
+    // player2_minion_num = players[1]->getMinionSize();
+    for (int i = 0; i < player2_minion_num; ++i) {
+        // player2_minions.emplace_back(displayer_player_card(players[1]->getMinion[i]));
+    }
+    for (int i = 0; i < 5 - player1_minion_num; ++i) {
+        player2_minions.emplace_back(CARD_TEMPLATE_BORDER);
+    }
+    for (int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
+        for (int j = 0; j < 5; j++) {
+            cout << player2_minions.at(j).at(i);
+        }
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
+        cout << endl;
+    }
+
+    // player 2 ritual, player, graveyard
+    vector<card_template_t> player2_line;
+    if (test /* player 2 has ritual */) {
+        // player2_line.emplace_back(players[1]->getRitual());
+    } else {
+        player2_line.emplace_back(CARD_TEMPLATE_BORDER);
+    }
+    player2_line.emplace_back(CARD_TEMPLATE_EMPTY);
+    player2_line.emplace_back(display_player_card(2, players[1]->getName(), players[1]->getHealth(), players[1]->getMagic()));
+    player2_line.emplace_back(CARD_TEMPLATE_EMPTY);
+    if (test /* player 1 has non-empty grave */) {
+        // player2_line.emplace_back(player[1]->getLastGrave());
+    } else {
+        player2_line.emplace_back(CARD_TEMPLATE_BORDER);
+    }
+    for (int i = 0; i < CARD_TEMPLATE_BORDER.size(); i++) {
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
+        for (int j = 0; j < 5; j++) {
+            cout << player2_line.at(j).at(i);
+        }
+        cout << EXTERNAL_BORDER_CHAR_UP_DOWN; // external
+        cout << endl;
+    }
+
+    //bottom board
+    cout << EXTERNAL_BORDER_CHAR_BOTTOM_LEFT;
+    for (int i = 0; i < 33*5; i++) {
+        cout << EXTERNAL_BORDER_CHAR_LEFT_RIGHT;
+    }
+    cout << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT << endl;
 }
 
 void Game::startTurn() {
