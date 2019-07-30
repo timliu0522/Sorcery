@@ -74,3 +74,5 @@ void Deck::pop_top(int player) {
     notifyObservers();
     cardlist[player].pop_back();
 }
+
+void Deck::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {}

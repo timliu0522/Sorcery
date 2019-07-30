@@ -19,10 +19,10 @@ class Game : public Subject<std::shared_ptr<Card>, Effect>, public Observer<std:
     std::shared_ptr<Player> players[2];
     int CurrPlayer; // current player
     int OtherPlayer;
-    std::shared_ptr<Deck> deck;
-    std::shared_ptr<Board> board;
-    std::shared_ptr<Hand> hand;
-    std::shared_ptr<Graveyard> grave;
+    std::shared_ptr<Deck> deck = std::make_shared<Deck>();
+    std::shared_ptr<Board> board = std::make_shared<Board>();
+    std::shared_ptr<Hand> hand = std::make_shared<Hand>();
+    std::shared_ptr<Graveyard> grave = std::make_shared<Graveyard>();
     bool game_end;
     bool game_begin;
 public:

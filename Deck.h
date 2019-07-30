@@ -13,6 +13,7 @@ public:
     void push_card(int player, std::shared_ptr<Card>) override;
     void pop_card(int player, std::shared_ptr<Card>) override;
     void pop_top(int player);
+    void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override;
 };
 
 

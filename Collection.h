@@ -16,6 +16,10 @@ public:
     virtual void push_card(int player, std::shared_ptr<Card> in) = 0;
     virtual void pop_card(int player, std::shared_ptr<Card> out) = 0;
     int get_size(int player);
+
+    std::vector<std::shared_ptr<Card>> get_list(int p) {
+        return cardlist[p];
+    }
 };
 
 #endif //SORCERY_COLLECTION_H
