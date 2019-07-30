@@ -34,6 +34,7 @@ public:
     int getOtherPlayer();
     std::shared_ptr<Player> getPlayer1();
     std::shared_ptr<Player> getPlayer2();
+    std::shared_ptr<Deck> getDeck();
     void draw();
     bool getEnd();
     bool getBegin();
