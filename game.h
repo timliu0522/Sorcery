@@ -5,7 +5,6 @@
 #ifndef CODES_GAME_H
 #define CODES_GAME_H
 
-#include "Collection.h"
 #include "Deck.h"
 #include "Grave.h"
 #include "Board.h"

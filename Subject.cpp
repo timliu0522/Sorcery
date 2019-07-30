@@ -18,6 +18,9 @@ template <typename InfoType, typename StateType>
 void Subject<InfoType, StateType>::setState(StateType newS) { state = newS; }
 
 template <typename InfoType, typename StateType>
+void Subject<InfoType, StateType>::setInfo(InfoType newI) { info = newI; }
+
+template <typename InfoType, typename StateType>
 StateType Subject<InfoType, StateType>::getState() const { return state; }
 
 template <typename InfoType, typename StateType>
@@ -31,6 +34,3 @@ void Subject<InfoType, StateType>::detach(std::shared_ptr<Observer<InfoType, Sta
 
 template <typename InfoType, typename StateType>
 InfoType Subject<InfoType, StateType>::getInfo() const { return info; }
-
-template <typename InfoType, typename StateType>
-void Subject<InfoType, StateType>::setInfo(InfoType newI) { info = newI; }

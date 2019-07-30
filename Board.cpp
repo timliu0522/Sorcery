@@ -144,7 +144,7 @@ void Board::useCard(int player, int idx, int tar, int idx2) {
             throw 9;
         }
         for (int i = 0; i < getState().target && cardlist[player].size() < 5; i++) {
-            push_card(player, std::make_shared<Card>(new Air_Elemental(player)));
+            push_card(player, std::make_shared<Air_Elemental>(player));
         }
     }
 }

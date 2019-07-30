@@ -5,7 +5,6 @@
 #ifndef SORCERY_OBSERVER_H
 #define SORCERY_OBSERVER_H
 
-
 template <typename InfoType, typename StateType> class Subject;
 
 

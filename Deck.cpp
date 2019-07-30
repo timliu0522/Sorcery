@@ -29,15 +29,15 @@ void Deck::load_deck(std::string filename, int num) {
         if (cardname == "Potion Seller")
             push_card(num, std::make_shared<Potion_Seller>(num));
         if (cardname == "Silence")
-            push_card(num, std::make_shared<Silence>(nullptr));
+            push_card(num, std::make_shared<Silence>(num));
         if (cardname == "Giant Strength")
-            push_card(num, std::make_shared<Giant_Strength>(nullptr));
+            push_card(num, std::make_shared<Giant_Strength>(num));
         if (cardname == "Magic Fatigue")
-            push_card(num, std::make_shared<Magic_Fatigue>(nullptr));
+            push_card(num, std::make_shared<Magic_Fatigue>(num));
         if (cardname == "Haste")
-            push_card(num, std::make_shared<Haste>(nullptr));
+            push_card(num, std::make_shared<Haste>(num));
         if (cardname == "Enrage")
-            push_card(num, std::make_shared<Enrage>(nullptr));
+            push_card(num, std::make_shared<Enrage>(num));
         if (cardname == "Dark Ritual")
             push_card(num, std::make_shared<Dark_Ritual>(num));
         if (cardname == "Aura of Power")

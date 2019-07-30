@@ -5,13 +5,14 @@
 #ifndef CODES_PLAYER_H
 #define CODES_PLAYER_H
 
-#include <stdio.h>
 #include <string>
+#include "Subject.h"
 #include "Observer.h"
+#include "State.h"
 #include "Card.h"
 
 
-class Player : public Observer<std::shared_ptr<Card>, Effect>{
+class Player : public Observer<std::shared_ptr<Card>, Effect> {
     std::string name;
     int health;
     int magic;
