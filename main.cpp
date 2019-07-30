@@ -109,6 +109,7 @@ int main(int argc, char *argv[]) {
      */
 
     game.init_game();
+    game.startTurn();
 
     while (true) {
         std::cout<<"FUCKING"<<std::endl;

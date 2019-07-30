@@ -225,9 +225,9 @@ void Game::prettyprint() {
 
 void Game::startTurn() {
     draw();
-    setState(Effect(EffectType::SOT, CurrPlayer, 0, CollectionType::BOARD, 2));
+    setState(Effect(EffectType::SOT, CurrPlayer, 0, CollectionType::BOARD, 0, 0, 2, 0));
     notifyObservers();
-    setState(Effect(EffectType::SOT, CurrPlayer, 0, CollectionType::BOARD, 3));
+    setState(Effect(EffectType::SOT, CurrPlayer, 0, CollectionType::BOARD, 0, 0, 3, 0));
     notifyObservers();
 }
 

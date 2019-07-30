@@ -40,6 +40,7 @@ void Board::push_card(int player, std::shared_ptr<Card> in) {
         cardlist[player][cardlist[player].size() - 1]->attach(shared_from_this());
         in->set_belong(CollectionType::BOARD);
         if (in->get_type() == "Minion") {
+            setInfo(in);
             setState(Effect(EffectType::MEC, player, new_size - 1, CollectionType::BOARD));
             notify_APNAP();
         }
@@ -79,7 +80,7 @@ void Board::attackPlayer(int player, int idx) {
     }
     cardlist[player][idx - 1]->add_action();
     setState(Effect(EffectType::DMG, 1 - player, 0, CollectionType::BOARD, cardlist[player][idx - 1]->get_attack(), 0, 3));
-    notifyObservers();
+    notify_APNAP();
 }
 
 void Board::attackMinion(int player, int idx1, int idx2) {
@@ -93,25 +94,27 @@ void Board::attackMinion(int player, int idx1, int idx2) {
     }
     cardlist[player][idx1 - 1]->add_action();
     setInfo(cardlist[player][idx1 - 1]);
-    setState(Effect(EffectType::DMG, player, 0, CollectionType::BOARD, cardlist[1 - player][idx2 - 1]->get_attack(), 0, 0));
-    notifyObservers();
+    setState(Effect(EffectType::DMG, player, 0, CollectionType::BOARD, cardlist[1 - player][idx2 - 1]->get_attack(), 0, 0, player));
+    //notifyObservers();
+    notify_APNAP();
     setInfo(cardlist[1 - player][idx2 - 1]);
-    setState(Effect(EffectType::DMG, 1 - player, 0, CollectionType::BOARD, cardlist[player][idx1 - 1]->get_attack(), 0, 0));
-    notifyObservers();
+    setState(Effect(EffectType::DMG, 1 - player, 0, CollectionType::BOARD, cardlist[player][idx1 - 1]->get_attack(), 0, 0, 1 - player));
+    //notifyObservers();
+    notify_APNAP();
 }
 
 void Board::notify_APNAP() {
-    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value1, getState().value2, 0));
+    setState(Effect(getState().type, getState().player, getState().target, getState().destination, getState().value1, getState().value2, 0, cur_player));
     notifyObservers();
-    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value1, getState().value2, 1));
+    setState(Effect(getState().type, getState().player, getState().target, getState().destination, getState().value1, getState().value2, 1, cur_player));
     notifyObservers();
-    setState(Effect(getState().type, 1 - cur_player, getState().target, getState().destination, getState().value1, getState().value2, 0));
+    setState(Effect(getState().type, getState().player, getState().target, getState().destination, getState().value1, getState().value2, 0, 1 - cur_player));
     notifyObservers();
-    setState(Effect(getState().type, 1 - cur_player, getState().target, getState().destination, getState().value1, getState().value2, 1));
+    setState(Effect(getState().type, getState().player, getState().target, getState().destination, getState().value1, getState().value2, 1, 1 - cur_player));
     notifyObservers();
-    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value1, getState().value2, 2));
+    setState(Effect(getState().type, getState().player, getState().target, getState().destination, getState().value1, getState().value2, 2));
     notifyObservers();
-    setState(Effect(getState().type, cur_player, getState().target, getState().destination, getState().value1, getState().value2, 3));
+    setState(Effect(getState().type, getState().player, getState().target, getState().destination, getState().value1, getState().value2, 3));
     notifyObservers();
 }
 
@@ -152,24 +155,21 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().notified_type != 2) return;
     if (whoFrom.getState().type == EffectType::SOT) {
         setState(whoFrom.getState());
-        notifyObservers();
+        notify_APNAP();
     } else if (whoFrom.getState().type == EffectType::EOT) {
         setState(whoFrom.getState());
-        notifyObservers();
+        notify_APNAP();
         cur_player = 1 - cur_player;
     } else if (whoFrom.getState().type == EffectType::MLC) {
          pop_card(0, whoFrom.getInfo());
     } else if (whoFrom.getState().type == EffectType::DMG) {
         setInfo(whoFrom.getInfo());
         setState(whoFrom.getState());
-        if (whoFrom.getState().target == 3)
-            notify_APNAP();
-        else
-            notifyObservers();
+        notify_APNAP();
     } else if (whoFrom.getState().type == EffectType::BUF) {
         setInfo(whoFrom.getInfo());
         setState(whoFrom.getState());
-        notifyObservers();
+        notify_APNAP();
     } else if (whoFrom.getState().type == EffectType::MEC) {
         push_card(whoFrom.getInfo()->get_player(), whoFrom.getInfo());
     } else if (whoFrom.getState().type == EffectType::MOV) {
@@ -197,26 +197,27 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
                         if (cardlist[whoFrom.getState().target].size() < whoFrom.getState().value1) {
                             throw 7;
                         }
+                        if (whoFrom.getState().type == EffectType::DEC) {
+                            cardlist[whoFrom.getState().target][whoFrom.getState().value1 - 1]->dec();
+                            return;
+                        }
                         setState(c->get_effect());
                         setInfo(cardlist[whoFrom.getState().target][whoFrom.getState().value1 - 1]);
-                        notifyObservers();
+                        notify_APNAP();
                     } else {
                         if (ritual[whoFrom.getState().target].size() < 1) {
                             throw 7;
                         }
                         setState(c->get_effect());
                         setInfo(ritual[whoFrom.getState().target][0]);
-                        notifyObservers();
+                        notify_APNAP();
                     }
                 } else {
                     if (whoFrom.getState().target != -1) {
                         throw 8;
                     }
                     setState(c->get_effect());
-                    if (getState().type == EffectType::DMG && getState().target == 3)
-                        notify_APNAP();
-                    else
-                        notifyObservers();
+                    notify_APNAP();
                 }
             } else if (c->get_type() == "Enchantment") {
                 if (whoFrom.getState().target == -1) {
@@ -232,7 +233,5 @@ void Board::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
         } else if (whoFrom.getState().destination == CollectionType::HAND) {
             pop_card(1, whoFrom.getInfo());
         }
-    } else if (whoFrom.getState().type == EffectType::DEC) {
-
     }
 }

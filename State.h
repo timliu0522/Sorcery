@@ -15,8 +15,9 @@ struct Effect {
     int value1;
     int value2;
     int notified_type; // 0 - minion, 1 - ritual, 2 - collections, 3 - player
+    int notified_player;
     Effect() = default;
-    Effect(EffectType type, int player, int target, CollectionType destination, int value1 = 0, int value2 = 0, int notified_type = 0) : type{type}, player{player}, target{target}, destination{destination}, value1{value1}, value2{value2}, notified_type{notified_type}{}
+    Effect(EffectType type, int player, int target, CollectionType destination, int value1 = 0, int value2 = 0, int notified_type = 0, int notified_player = 0) : type{type}, player{player}, target{target}, destination{destination}, value1{value1}, value2{value2}, notified_type{notified_type}, notified_player{notified_player} {};
 };
 
 #endif //SORCERY_STATE_H

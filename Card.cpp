@@ -166,6 +166,7 @@ void Card::end_turn() {}
 
 void Card::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (get_belong() != CollectionType::BOARD) return;
+    if (player != whoFrom.getState().notified_player) return;
     if (type == "Minion" && whoFrom.getState().notified_type != 0) return;
     if (type == "Ritual" && whoFrom.getState().notified_type != 1) return;
     if (whoFrom.getState().type == EffectType::SOT) {
