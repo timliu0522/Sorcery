@@ -11,15 +11,17 @@
 #include "window.h"
 #include "Observer.h"
 #include "State.h"
+#include "game.h"
 #include <vector>
 #include <iostream>
 
 class GraphicsDisplay: public Observer<std::shared_ptr<Card>, Effect> {
     Xwindow display;
+    Game *sorcery;
 public:
-    GraphicsDisplay (Game g);
+    GraphicsDisplay (Game *g);
     
-    void notify(Subject<std::shared_ptr<Card>, Effect> &whoNotified) override; // Notified if the grid is changed
+    void notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) override; // Notified if the grid is changed
     
     friend std::ostream &operator<<(std::ostream &out, const GraphicsDisplay &gd); // print grid
 };

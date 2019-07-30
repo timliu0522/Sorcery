@@ -8,7 +8,8 @@
 
 #include "Graphics.h"
 
-GraphicsDisplay::GraphicsDisplay (Game g) {
+GraphicsDisplay::GraphicsDisplay (Game *g) {
+    sorcery = g;
     // Background
     display.fillRectangle(0, 0, 1005, 900);
     
@@ -45,8 +46,27 @@ GraphicsDisplay::GraphicsDisplay (Game g) {
     display.drawString(910, 805, "Grave");
 }
 
-void GraphicsDisplay::notify(Subject<std::shared_ptr<Card>, Effect> &whoNotified) {
-    if (whoNotified.getState() == EffectType::MEC)
+void GraphicsDisplay::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
+    if (type == "Minion" && whoFrom.getState().notified_type != 0) return;
+    if (type == "Ritual" && whoFrom.getState().notified_type != 1) return;
+    if (whoFrom.getState().type == EffectType::SOT) {
+        display.drawPlayer(sorcery->getCurrPlayer());
+        for (int i = 0; i < sorcery->)
+    } else if (whoFrom.getState().type == EffectType::EOT) {
+        end_turn(whoFrom);
+    } else if (whoFrom.getState().type == EffectType::MEC) {
+        meb(whoFrom);
+    } else if (whoFrom.getState().type == EffectType::MLC) {
+        mlb(whoFrom);
+    } else if (whoFrom.getState().type == EffectType::DMG) {
+        take_dmg(whoFrom);
+    } else if (whoFrom.getState().type == EffectType::BUF) {
+        take_buf(whoFrom);
+    } else if (whoFrom.getState().type == EffectType::DEC) {
+        dec();
+    } else if (whoFrom.getState().type == EffectType::MOV) {
+        mov(whoFrom);
+    }
     
 }
 

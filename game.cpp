@@ -64,6 +64,10 @@ std::shared_ptr<Deck> Game::getDeck() {
     return deck;
 }
 
+std::shared_ptr<Hand> Game::getHand() {
+    return hand;
+}
+
 void Game::init_game() {
     for (int i = 0; i < 4; i++) {
         deck->pop_top(CurrPlayer);

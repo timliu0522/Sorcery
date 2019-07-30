@@ -32,6 +32,8 @@ public:
     // Draws a string
     void drawCard (int x, int y, std::shared_ptr<Card>);
     
+    void drawPlayer (int player);
+    
 };
 
 #endif
