@@ -34,7 +34,6 @@ public:
     int getOtherPlayer();
     std::shared_ptr<Player> getPlayer1();
     std::shared_ptr<Player> getPlayer2();
-    void setDeck(std::string filename, int player);
     void draw();
     bool getEnd();
     bool getBegin();

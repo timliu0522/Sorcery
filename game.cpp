@@ -235,7 +235,6 @@ void Game::UseCard(int index_1, int player, int index_2){
     }
 }
 void Game::InspectMinion(int index_1){}
-void Game::ShowHand(){}
 
 std::string Game::getWinner() {
     if (players[0]->getHealth() <= 0) {
@@ -250,5 +249,16 @@ std::string Game::getWinner() {
 void Game::notify(Subject<std::shared_ptr<Card>, Effect> &whoFrom) {
     if (whoFrom.getState().type == EffectType::RES) {
         grave->pop_top(whoFrom.getState().player);
+    }
+}
+
+
+void Game::ShowHand() {
+    int player = getCurrPlayer();
+    int size = hand->get_size(player);
+    vector<card_template_t> player_hand;
+    for (int i = 0; i < size; ++i) {
+        if (hand->cardlist[player])
+        player_hand.emplace_back()
     }
 }
